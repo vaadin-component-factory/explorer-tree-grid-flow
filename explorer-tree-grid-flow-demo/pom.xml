@@ -106,10 +106,10 @@
             </exclusions>
         </dependency>
 
-        <dependency>
-            <groupId>org.vaadin.componentfactory</groupId>
-            <artifactId>explorer-tree-grid-flow</artifactId>
-        </dependency>
+       <dependency>
+           <groupId>org.vaadin.componentfactory</groupId>
+           <artifactId>explorer-tree-grid-flow</artifactId>
+       </dependency>
         <!-- https://mvnrepository.com/artifact/com.vaadin/flow-component-demo-helpers -->
         <dependency>
             <groupId>com.vaadin</groupId>

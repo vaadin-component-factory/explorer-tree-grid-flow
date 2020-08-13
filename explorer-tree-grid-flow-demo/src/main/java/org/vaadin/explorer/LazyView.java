@@ -1,5 +1,6 @@
 package org.vaadin.explorer;
 
+import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.treegrid.TreeGrid;
@@ -29,10 +30,8 @@ public class LazyView extends Div {
 
     private TreeGrid<Account> buildGrid() {
         AccountService accountService = new AccountService();
-
-        // begin-source-example
-        // source-example-heading: TreeGrid with lazy loading
         TreeGrid<Account> grid = new ExplorerTreeGrid<>();
+        grid.addThemeVariants(GridVariant.LUMO_NO_ROW_BORDERS, GridVariant.LUMO_COLUMN_BORDERS);
         grid.addHierarchyColumn(Account::toString).setHeader("Account Title");
         grid.addColumn(Account::getCode).setHeader("Code");
         grid.addColumn(Account::getCode).setHeader("Code");

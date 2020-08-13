@@ -19,4 +19,15 @@ This deploys demo at http://localhost:8080
 
 ## Examples
 
-TODO
+### Customize the Explorer Tree Grid
+
+By default, there are few css variables that help you to change the style of the Explorer Tree Grid:
+```
+--explorer-tree-grid-toggle-level-offset: 1em;
+--explorer-tree-grid-icon-type-width: 18px;
+--explorer-tree-grid-expand-icon-width: 10px;
+--explorer-tree-grid-icon-type-margin: 2px;
+--explorer-tree-grid-line-color: var(--lumo-contrast-80pct);
+--explorer-tree-grid-icon-color: var(--lumo-contrast-80pct);
+--explorer-tree-grid-border-style: dotted;
+```

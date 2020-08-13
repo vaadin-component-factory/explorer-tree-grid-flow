@@ -11,92 +11,43 @@ import { ThemableMixin } from '@vaadin/vaadin-themable-mixin/vaadin-themable-mix
 import { DirMixin } from '@vaadin/vaadin-element-mixin/vaadin-dir-mixin.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { microTask } from '@polymer/polymer/lib/utils/async.js';
-const $_documentContainer = document.createElement('template');
 
-$_documentContainer.innerHTML = `<custom-style>
-  <style>
-    @font-face {
-      font-family: "vaadin-grid-tree-icons";
-      src: url(data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAAQkAA0AAAAABrwAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABGRlRNAAAECAAAABoAAAAcgHwa6EdERUYAAAPsAAAAHAAAAB4AJwAOT1MvMgAAAZQAAAA/AAAAYA8TBIJjbWFwAAAB8AAAAFUAAAFeGJvXWmdhc3AAAAPkAAAACAAAAAgAAAAQZ2x5ZgAAAlwAAABLAAAAhIrPOhFoZWFkAAABMAAAACsAAAA2DsJI02hoZWEAAAFcAAAAHQAAACQHAgPHaG10eAAAAdQAAAAZAAAAHAxVAgBsb2NhAAACSAAAABIAAAASAIAAVG1heHAAAAF8AAAAGAAAACAACgAFbmFtZQAAAqgAAAECAAACTwflzbdwb3N0AAADrAAAADYAAABZQ7Ajh3icY2BkYGAA4twv3Vfi+W2+MnCzMIDANSOmbGSa2YEZRHEwMIEoAAoiB6sAeJxjYGRgYD7w/wADAwsDCDA7MDAyoAI2AFEEAtIAAAB4nGNgZGBg4GBgZgDRDAxMDGgAAAGbABB4nGNgZp7JOIGBlYGBaSbTGQYGhn4IzfiawZiRkwEVMAqgCTA4MDA+38d84P8BBgdmIAapQZJVYGAEAGc/C54AeJxjYYAAxlAIzQTELAwMBxgZGB0ACy0BYwAAAHicY2BgYGaAYBkGRgYQiADyGMF8FgYbIM3FwMHABISMDArP9/3/+/8/WJXC8z0Q9v8nEp5gHVwMMMAIMo+RDYiZoQJMQIKJARUA7WBhGN4AACFKDtoAAAAAAAAAAAgACAAQABgAJgA0AEIAAHichYvBEYBADAKBVHBjBT4swl9KS2k05o0XHd/yW1hAfBFwCv9sIlJu3nZaNS3PXAaXXHI8Lge7DlzF7C1RgXc7xkK6+gvcD2URmQB4nK2RQWoCMRiFX3RUqtCli65yADModOMBLLgQSqHddRFnQghIAnEUvEA3vUUP0LP0Fj1G+yb8R5iEhO9/ef/7FwFwj28o9EthiVp4hBlehcfUP4Ur8o/wBAv8CU+xVFvhOR7UB7tUdUdlVRJ6HnHWTnhM/V24In8JT5j/KzzFSi2E53hUz7jCcrcIiDDwyKSW1JEct2HdIPH1DFytbUM0PofWdNk5E5oUqb/Q6HHBiVGZpfOXkyUMEj5IyBuNmYZQjBobfsuassvnkKLe1OuBBj0VQ8cRni2xjLWsHaM0jrjx3peYA0/vrdmUYqe9iy7bzrX6eNP7Jh1SijX+AaUVbB8AAHicY2BiwA84GBgYmRiYGJkZmBlZGFkZ2djScyoLMgzZS/MyDQwMwLSruZMzlHaB0q4A76kLlwAAAAEAAf//AA94nGNgZGBg4AFiMSBmYmAEQnYgZgHzGAAD6wA2eJxjYGBgZACCKxJigiD6mhFTNowGACmcA/8AAA==) format('woff');
-      font-weight: normal;
-      font-style: normal;
-    }
-  </style>
-</custom-style>`;
-
-document.head.appendChild($_documentContainer.content);
-/**
- * `<vaadin-grid-tree-toggle>` is a helper element for the `<vaadin-grid>`
- * that provides toggle and level display functionality for the item tree.
- *
- * #### Example:
- * ```html
- * <vaadin-grid-column>
- *   <template class="header">Package name</template>
- *   <template>
- *     <vaadin-grid-tree-toggle
- *         leaf="[[!item.hasChildren]]"
- *         expanded="{{expanded}}"
- *         level="[[level]]">
- *       [[item.name]]
- *     </vaadin-grid-tree-toggle>
- *   </template>
- * </vaadin-grid-column>
- * ```
- *
- * ### Styling
- *
- * The following shadow DOM parts are available for styling:
- *
- * Part name | Description
- * ---|---
- * `toggle` | The tree toggle icon
- *
- * The following state attributes are available for styling:
- *
- * Attribute    | Description | Part name
- * ---|---|---
- * `expanded` | When present, the toggle is expanded | :host
- * `leaf` | When present, the toggle is not expandable, i. e., the current item is a leaf | :host
- *
- * The following custom CSS properties are available on
- * the `<vaadin-grid-tree-toggle>` element:
- *
- * Custom CSS property | Description | Default
- * ---|---|---
- * `--vaadin-grid-tree-toggle-level-offset` | Visual offset step for each tree sublevel | `1em`
- *
- * @extends PolymerElement
- * @mixes ThemableMixin
- */
 class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) {
   static get template() {
     return html`
     <style>
+    /*
+     
+*/
     :host {
-        --vaadin-grid-tree-toggle-level-offset: 2em;
+        --explorer-tree-grid-toggle-level-offset: 2em;
+        --explorer-tree-grid-icon-type-width: 18px;
+        --explorer-tree-grid-expand-icon-width: 10px;
+        --explorer-tree-grid-icon-type-margin: 2px;
+        --explorer-tree-grid-line-color: var(--lumo-contrast-50pct);
+        --explorer-tree-grid-icon-color: var(--lumo-contrast-50pct);
+        --explorer-tree-grid-border-style: solid;
+        display: inline-flex;
         align-items: center;
-        vertical-align: middle;
         margin-left: calc(var(--lumo-space-s) * -1);
         -webkit-tap-highlight-color: transparent;
       }
-
+      
       :host(:not([leaf])) {
         cursor: default;
       }
 
       [part="toggle"] {
-        display: inline-block;
-        font-size: 1em;
+        display: inline-flex;
+        justify-content: center;
+        font-size: var(--explorer-tree-grid-expand-icon-width);
         line-height: 1;
-        width: 1.5em;
+        width: var(--explorer-tree-grid-icon-type-width);
         height: 1em;
         text-align: center;
-        color: var(--lumo-contrast-50pct);
+        color: var(--explorer-tree-grid-icon-color);
         /* Increase touch target area */
         margin-top: calc(1em / -3);
-        /* padding: calc(1em / 3);
-        margin: calc(1em / -3);*/
       }
 
       :host(:not([dir="rtl"])) [part="toggle"] {
@@ -114,18 +65,8 @@ class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) 
         display: inline-block;
         height: 100%;
       }
-/*
-      :host(:not([expanded])) [part="toggle"]::before {
-        content: var(--lumo-icons-angle-right);
-      }
-
-      :host([expanded]) [part="toggle"]::before {
-        content: var(--lumo-icons-angle-right);
-        transform: rotate(90deg);
-      }
-*/
+      
       /* RTL specific styles */
-
       :host([dir="rtl"]) {
         margin-left: 0;
         margin-right: calc(var(--lumo-space-s) * -1);
@@ -138,29 +79,12 @@ class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) 
       :host([dir="rtl"][expanded]) [part="toggle"]::before {
         transform: rotate(-90deg);
       }
-
+/*
       :host([dir="rtl"]:not([expanded])) [part="toggle"]::before,
       :host([dir="rtl"][expanded]) [part="toggle"]::before {
         content: var(--lumo-icons-angle-left);
-      }
+      }*/
       
-      :host {
-        display: inline-flex;
-        align-items: baseline;
-
-        /* CSS API for :host */
-        --vaadin-grid-tree-toggle-level-offset: 2em;
-        /*
-          ShadyCSS seems to polyfill :dir(rtl) only for :host, thus using
-          a host custom CSS property for ltr/rtl toggle icon choice.
-         */
-        ---collapsed-icon: "\\e7be\\00a0";
-      }
-
-      :host(:dir(rtl)) {
-        ---collapsed-icon: "\\e7bd\\00a0";
-      }
-
       :host([hidden]) {
         display: none !important;
       }
@@ -177,14 +101,6 @@ class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) 
         line-height: 1em; /* make icon font metrics not affect baseline */
       }
 
-      :host(:not([expanded])) [part="toggle"]::before {
-        content: var(---collapsed-icon);
-      }
-
-      :host([expanded]) [part="toggle"]::before {
-        content: "\\e7bc\\00a0"; /* icon glyph + single non-breaking space */
-      }
-
       :host([leaf]) [part="toggle"] {
         visibility: hidden;
       }
@@ -192,7 +108,7 @@ class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) 
       .level-spacer {
         flex: none;
         display: inline-block;
-        width: var(--vaadin-grid-tree-toggle-level-offset);
+        width: var(--explorer-tree-grid-toggle-level-offset);
       }
       
       .level-spacer-hidden {
@@ -200,73 +116,115 @@ class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) 
       }
       
       /* Experimental support for hierarchy connectors, using an unsupported selector */
-      :host([theme~="connectors"]) .level-spacer {
+      :host .level-spacer {
         position: relative;
         font-size: 1em;
         height: 1em /*calc( 1em + 4px );*/
       }
 
-      :host([theme~="connectors"]) .level-spacer::before {
+      :host .level-spacer::before {
         display: block;
         content: "";
         margin-top: calc(var(--lumo-space-m) * -1);
         height: calc(var(--lumo-space-m) + 3em);
-        border-left: 1px var(--border-style) var(--color-border);
-        margin-left: calc(var(--vaadin-grid-tree-toggle-level-offset) / 2 - 4px);
+        border-left: 1px var(--explorer-tree-grid-border-style) var(--explorer-tree-grid-line-color);
+        /* margin-left: calc(var(--explorer-tree-grid-toggle-level-offset) / 2 - 4px);*/
+        margin-left: calc( var(--explorer-tree-grid-icon-type-width) / 2 );
       }
   
-      :host([theme~="connectors"]) .toggle {
+      :host([dir="rtl"]) .level-spacer::before {
+        border-left: 0;
+        margin-left: 0;
+        border-right: 1px var(--explorer-tree-grid-border-style) var(--explorer-tree-grid-line-color);
+        /* margin-left: calc(var(--explorer-tree-grid-toggle-level-offset) / 2 - 4px);*/
+        margin-right: calc( var(--explorer-tree-grid-icon-type-width) / 2 );
+      }
+      :host .toggle {
         position: relative;
         font-size: 1em;
         height: 1.75em;
+        width: var(--explorer-tree-grid-toggle-level-offset);
       }
-      :host([theme~="connectors"]) .toggle-hori-line {
+      :host .toggle-hori-line {
         position: absolute;
         right: 0;
         height:1px;
-        width: calc(50% + 4px);
-        border-top: 1px var(--border-style) var(--color-border);
-        margin-top: 0.75em;
+        width: calc(100% - var(--explorer-tree-grid-icon-type-width) / 2 );
+        border-top: 1px var(--explorer-tree-grid-border-style) var(--explorer-tree-grid-line-color);
+        margin-top: 0.8em;
       }
-      :host([theme~="connectors"]) .toggle-top-line {
+      :host([dir="rtl"]) .toggle-hori-line {
+        left: 0;
+      }
+      :host .toggle-top-line {
         position: absolute;
         margin-top: calc(var(--lumo-space-m) * -1);
         height: calc(var(--lumo-space-m) + 0.9em - 1px);
         width: 1px;
-        margin-left: calc(var(--vaadin-grid-tree-toggle-level-offset) / 2 - 4px);
-        border-left: 1px var(--border-style) var(--color-border);
+        /* margin-left: calc(var(--explorer-tree-grid-toggle-level-offset) / 2 - 4px);*/
+        margin-left: calc( var(--explorer-tree-grid-icon-type-width) / 2 );
+        border-left: 1px var(--explorer-tree-grid-border-style) var(--explorer-tree-grid-line-color);
       }
-      :host([theme~="connectors"]) .toggle-bottom-line {
+      
+      :host .toggle-bottom-line {
         position: absolute;
         bottom: 0;
         height: calc(var(--lumo-space-m) + 0.9em + 1px);
         margin-bottom: calc(var(--lumo-space-m) * -1);
         width: 1px;
-        margin-left: calc(var(--vaadin-grid-tree-toggle-level-offset) / 2 - 4px);
-        border-left: 1px var(--border-style) var(--color-border);
+        /*margin-left: calc(var(--explorer-tree-grid-toggle-level-offset) / 2 - 4px);*/
+        margin-left: calc( var(--explorer-tree-grid-icon-type-width) / 2 );
+        border-left: 1px var(--explorer-tree-grid-border-style) var(--explorer-tree-grid-line-color);
       }
-      :host([theme~="connectors"][last]) .toggle-bottom-line {
+      
+      :host([dir="rtl"]) .toggle-top-line,
+      :host([dir="rtl"]) .toggle-bottom-line,
+       {
+        border-left: 0;
+        margin-left: 0;
+        margin-right: calc( var(--explorer-tree-grid-icon-type-width) / 2 );
+        border-right: 1px var(--explorer-tree-grid-border-style) var(--explorer-tree-grid-line-color);
+      }
+      
+      :host([last]) .toggle-bottom-line {
         visibility: hidden;
       }
       
-      :host([theme~="connectors"][first]) .toggle-top-line {
+      :host([first]) .toggle-top-line {
         visibility: hidden;
       }
       
       [part="toggle"]::before {
-        background: white;
-        transform: rotate(0deg);
+          background: white;
+          transform: rotate(0deg);
+          border: 1px solid var(--explorer-tree-grid-icon-color);
       }
       
-      [part="toggle"] {
-        padding-right: 8px;
+      :host([expanded]) [part="toggle"]::before {
+          content: var(--lumo-icons-minus);
       }
       
-     /* .icon {
-        --iron-icon-height: 1em;
-        --iron-icon-width: 1em;
-        width: 24px;
-      }*/
+      :host(:not([expanded])) [part="toggle"]::before {
+          content: var(--lumo-icons-plus);
+      }
+      
+      :host([leaf]) [part="toggle"] {
+          visibility: visible;
+          content: "";
+      }
+      
+      :host([leaf]) [part="toggle"]::before {
+          content: "";
+          border: 0;
+      }
+    
+    .icon-type {
+        color: var(--explorer-tree-grid-icon-color);
+        margin-left: var(--explorer-tree-grid-icon-type-margin);
+        margin-right: var(--explorer-tree-grid-icon-type-margin);
+       --iron-icon-height: calc( var(--explorer-tree-grid-icon-type-width) - var(--explorer-tree-grid-icon-type-margin) );
+       --iron-icon-width: calc( var(--explorer-tree-grid-icon-type-width) - var(--explorer-tree-grid-icon-type-margin) );
+    }
       
     </style>
     <template is="dom-repeat" items="{{parentlines}}">
@@ -283,6 +241,9 @@ class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) 
       <span class="toggle-hori-line"></span>
       <span part="toggle"></span>
     </span>
+    <template is="dom-if" if="[[icon]]">
+        <iron-icon class="icon-type" icon='[[icon]]'></iron-icon>
+    </template>
     <slot></slot>
 `;
   }
@@ -302,6 +263,7 @@ class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) 
         value: 0,
         observer: '_levelChanged'
       },
+      
       parentlines: {
         type: Array,
         value: [5,6]
@@ -323,6 +285,16 @@ class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) 
         value: false,
         reflectToAttribute: true
       },
+
+      /**
+       *
+       */
+      icon: {
+        type: String,
+        value: "",
+        reflectToAttribute: true
+      },
+
       first: {
         type: Boolean,
         value: false,

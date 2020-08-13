@@ -20,7 +20,7 @@ window.Vaadin.Flow.explorerGridConnector = {
             while (cache.parentCache) {
                 // there is a parent
                 let parentKey = cache.parentItem.key;
-                if (cache.parentCache.items[cache.parentCache.size - 1].key === cache.parentItem.key) {
+                if ((cache.parentCache.items[cache.parentCache.size - 1] != null)  && cache.parentCache.items[cache.parentCache.size - 1].key === cache.parentItem.key) {
                     parentlines.unshift(0); // no line
                 } else {
                     parentlines.unshift(1);  // display line
