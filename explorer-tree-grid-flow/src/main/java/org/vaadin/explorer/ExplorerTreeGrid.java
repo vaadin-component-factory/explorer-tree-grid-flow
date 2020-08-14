@@ -21,7 +21,6 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.JavaScript;
 import com.vaadin.flow.component.dependency.Uses;
-import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.treegrid.TreeGrid;
 import com.vaadin.flow.data.renderer.TemplateRenderer;
@@ -30,6 +29,13 @@ import com.vaadin.flow.function.ValueProvider;
 
 import java.io.Serializable;
 
+/**
+ * A grid component for displaying hierarchical tabular data
+ * and displaying connectors between parent and children
+ *
+ * @param <T>
+ *            the grid bean type
+ */
 @Uses(Icon.class)
 @CssImport("./src/explorer-tree-toggle.js")
 @JavaScript("./src/explorer-grid-connector.js")

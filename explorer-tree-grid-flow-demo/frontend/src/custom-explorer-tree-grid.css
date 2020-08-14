@@ -1,18 +1,3 @@
-/*:host {
-    --explorer-tree-grid-toggle-level-offset: 1em;
-    --explorer-tree-grid-icon-type-width: 1px;
-    --explorer-tree-grid-expand-icon-width: 1em;
-    --explorer-tree-grid-icon-type-margin: 0.1em;
-    --explorer-tree-grid-line-color:  var(--lumo-contrast-80pct);
-    --explorer-tree-grid-icon-color: var(--lumo-contrast-80pct);
-    --explorer-tree-grid-border-style: dotted;
-}*/
 :host {
     --explorer-tree-grid-toggle-level-offset: 2rem;
-    --explorer-tree-grid-icon-type-width: 1.5rem;
-    --explorer-tree-grid-expand-icon-width: 1rem;
-    --explorer-tree-grid-icon-type-margin: 0.1rem;
-    --explorer-tree-grid-line-color: var(--lumo-contrast-50pct);
-    --explorer-tree-grid-icon-color: var(--lumo-contrast-50pct);
-    --explorer-tree-grid-border-style: solid;
 }

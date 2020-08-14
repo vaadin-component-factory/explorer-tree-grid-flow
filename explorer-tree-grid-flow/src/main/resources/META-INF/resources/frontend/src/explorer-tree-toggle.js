@@ -16,20 +16,22 @@ class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) 
   static get template() {
     return html`
     <style>
-    /*
-     
-*/
+    
     :host {
-        --explorer-tree-grid-toggle-level-offset: 2rem;
-        --explorer-tree-grid-icon-type-width: 1rem;
+        --explorer-tree-grid-toggle-level-offset: 1.5rem;
+        --explorer-tree-grid-icon-type-width: 1.1rem;
         --explorer-tree-grid-expand-icon-width: 0.8rem;
         --explorer-tree-grid-icon-type-margin: 0.1rem;
         --explorer-tree-grid-line-color: var(--lumo-contrast-50pct);
         --explorer-tree-grid-icon-color: var(--lumo-contrast-50pct);
+        --explorer-tree-grid-icon-hover-color: var(--lumo-contrast-80pct);
         --explorer-tree-grid-border-style: dotted;
+        --explorer-tree-grid-left-offset: var(--lumo-space-s);
+        --explorer-tree-grid-default-margin: var(--lumo-space-m);
+        --explorer-tree-grid-icon-background: var(--lumo-base-color);
         display: inline-flex;
         align-items: center;
-        margin-left: calc(var(--lumo-space-s) * -1);
+        margin-left: calc(var(--explorer-tree-grid-left-offset) * -1);
         -webkit-tap-highlight-color: transparent;
       }
       
@@ -45,6 +47,7 @@ class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) 
           min-height: 100%;
           height:unset;
           align-items: center;
+          color: var(--explorer-tree-grid-icon-color);
       }
 
       :host(:not([dir="rtl"])) [part="toggle"] {
@@ -53,7 +56,7 @@ class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) 
 
       @media (hover: hover) {
         :host(:hover) [part="toggle"] {
-          color: var(--lumo-contrast-80pct);
+          color: var(--explorer-tree-grid-icon-hover-color);
         }
       }
 
@@ -66,7 +69,7 @@ class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) 
       /* RTL specific styles */
       :host([dir="rtl"]) {
         margin-left: 0;
-        margin-right: calc(var(--lumo-space-s) * -1);
+        margin-right: calc(var(--explorer-tree-grid-left-offset) * -1);
       }
 
       :host([dir="rtl"]) [part="toggle"] {
@@ -110,7 +113,6 @@ class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) 
         visibility: hidden;
       }
       
-      /* Experimental support for hierarchy connectors, using an unsupported selector */
       :host .level-spacer {
         position: relative;
         font-size: 1em;
@@ -120,8 +122,8 @@ class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) 
       :host .level-spacer::before {
         display: block;
         content: "";
-        margin-top: calc(var(--lumo-space-m) * -1);
-        height: calc(var(--lumo-space-m) + 3em);
+        margin-top: calc(var(--explorer-tree-grid-default-margin) * -1);
+        height: calc(var(--explorer-tree-grid-default-margin) + 3em);
         border-left: 1px var(--explorer-tree-grid-border-style) var(--explorer-tree-grid-line-color);
         margin-left: calc( var(--explorer-tree-grid-icon-type-width) / 2 );
       }
@@ -147,8 +149,8 @@ class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) 
       }
       :host .toggle-top-line {
         position: absolute;
-        margin-top: calc(var(--lumo-space-m) * -1);
-        height: calc(var(--lumo-space-m) + 50%);
+        margin-top: calc(var(--explorer-tree-grid-default-margin) * -1);
+        height: calc(var(--explorer-tree-grid-default-margin) + 50%);
         width: 1px;
         margin-left: calc( var(--explorer-tree-grid-icon-type-width) / 2 );
         border-left: 1px var(--explorer-tree-grid-border-style) var(--explorer-tree-grid-line-color);
@@ -157,15 +159,15 @@ class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) 
       :host .toggle-bottom-line {
         position: absolute;
         bottom: 0;
-        height: calc(var(--lumo-space-m) + 50% - 1px);
-        margin-bottom: calc(var(--lumo-space-m) * -1);
+        height: calc(var(--explorer-tree-grid-default-margin) + 50% - 1px);
+        margin-bottom: calc(var(--explorer-tree-grid-default-margin) * -1);
         width: 1px;
         margin-left: calc( var(--explorer-tree-grid-icon-type-width) / 2 );
         border-left: 1px var(--explorer-tree-grid-border-style) var(--explorer-tree-grid-line-color);
       }
       
       :host .toggle-bottom-line {
-          height: calc(var(--lumo-space-m) + 50% - 1px);
+          height: calc(var(--explorer-tree-grid-default-margin) + 50% - 1px);
       }
       
       :host([dir="rtl"]) .toggle-top-line,
@@ -185,7 +187,7 @@ class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) 
       }
       
       [part="toggle"]::before {
-        background: var(--lumo-base-color);
+        background: var(--explorer-tree-grid-icon-background);
         transform: rotate(0deg);
         border: 1px solid var(--explorer-tree-grid-icon-color);
       }
