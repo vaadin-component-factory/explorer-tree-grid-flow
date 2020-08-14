@@ -9,6 +9,7 @@ public class DepartmentData {
     private static final List<Department> DEPARTMENT_LIST = createDepartmentList();
 
     private static List<Department> createDepartmentList() {
+        System.out.println("createDepartmentList");
         List<Department> departmentList = new ArrayList<>();
 
         departmentList
@@ -17,7 +18,7 @@ public class DepartmentData {
                 new Department(11, "Flow", departmentList.get(0), "Pekka"));
         departmentList.add(new Department(111, "Flow Core",
                 departmentList.get(1), "Pekka"));
-        departmentList.add(new Department(111, "Flow Components",
+        departmentList.add(new Department(112, "Flow Components",
                 departmentList.get(1), "Gilberto"));
         departmentList.add(
                 new Department(12, "Design", departmentList.get(0), "Pekka"));
@@ -45,7 +46,7 @@ public class DepartmentData {
                 new Department(52, "Sub-Office 2", departmentList.get(15), "Anu2"));
         for (int i = 0; i < 60; i++) {
             departmentList
-                    .add(new Department(100+i, "T "+i, null, "Test"));
+                    .add(new Department(200+i, "T "+i, null, "Test"));
         }
         return departmentList;
 
@@ -62,9 +63,17 @@ public class DepartmentData {
     }
 
     public List<Department> getChildDepartments(Department parent) {
-        return DEPARTMENT_LIST.stream().filter(
+        return getChildDepartments(parent, 0);
+    }
+    public List<Department> getChildDepartments(Department parent, int offset) {
+        List<Department> departmentList = DEPARTMENT_LIST.stream().filter(
                 department -> Objects.equals(department.getParent(), parent))
                 .collect(Collectors.toList());
+        return departmentList.subList(offset, departmentList.size());
     }
 
+    public boolean hasChildren(Department parent) {
+        return DEPARTMENT_LIST.stream().anyMatch(
+                department -> Objects.equals(department.getParent(), parent));
+    }
 }

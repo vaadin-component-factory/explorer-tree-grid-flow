@@ -1,14 +1,9 @@
 package org.vaadin.explorer.service;
 
-import org.vaadin.explorer.bean.Account;
-import org.vaadin.explorer.bean.AccountData;
 import org.vaadin.explorer.bean.DummyFile;
-import org.vaadin.explorer.bean.DummyFileUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class DummyFileService {
 

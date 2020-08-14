@@ -14,7 +14,7 @@ import org.vaadin.explorer.bean.DepartmentData;
 import org.vaadin.explorer.bean.Person;
 
 /**
- * @author jcgueriaud
+ * Basic example with setItems for the Vaadin TreeGrid
  */
 @Route(value = "simple", layout = MainLayout.class)
 public class SimpleGridView extends Div {
@@ -30,59 +30,9 @@ public class SimpleGridView extends Div {
         TreeGrid<Department> grid = new TreeGrid<>();
         grid.setItems(departmentData.getRootDepartments(),
                 departmentData::getChildDepartments);
-        /*grid.addHierarchyColumn(value -> value.getName()).setHeader("Department Name");*/
-        grid.addColumn(TemplateRenderer.<Department>of("<vaadin-grid-tree-toggle leaf='[[item.leaf]]' expanded='{{expanded}}' level='[[level]]'>[[item.name]]</vaadin-grid-tree-toggle>")
-                .withProperty("leaf", (item) -> {
-            return !grid.getDataCommunicator().hasChildren(item);
-        }).withProperty("name", Department::getName));
-        /*
-        grid.addColumn(TemplateRenderer
-                .<Department> of("<vaadin-grid-tree-toggle  "
-                        + "leaf='[[item.leaf]]' last='[[item.last]]' expanded='{{expanded}}' " +
-                        "level='[[level]]'>[[item.name]]"
-                        + "</vaadin-grid-tree-toggle")
-                .withProperty("leaf",
-                        item -> {
-                            Integer index = grid.getDataCommunicator().getIndex(item);
-                            Department parentItem = grid.getDataCommunicator().getParentItem(item);
-                            String key = grid.getDataCommunicator().getKeyMapper().key(item);
-                            return !grid.getDataCommunicator().hasChildren(item);
-                        }).withProperty("last",
-                        item -> {
-                            if  (item.getName().equals("Marketing") || item.getName().equals("Brand Experience")) {
-                                return true;
-                            } else {
-                                return false;
-                            }
-                        })
-                .withProperty("name",
-                        value -> value.getName()))
-                .setHeader("Department Name");*/
-        /*grid.addColumn(TemplateRenderer
-                .<Department> of("<vaadin-grid-tree-toggle theme='connectors' "
-                        + "leaf='[[item.leaf]]' last='[[item.last]]' expanded='{{expanded}}' " +
-                        "level='[[level]]'>[[item.name]]"
-                        + "</vaadin-grid-tree-toggle")
-                .withProperty("leaf",
-                        item -> {
-                            Integer index = grid.getDataCommunicator().getIndex(item);
-                            Department parentItem = grid.getDataCommunicator().getParentItem(item);
-                            String key = grid.getDataCommunicator().getKeyMapper().key(item);
-                            return !grid.getDataCommunicator().hasChildren(item);
-                        }).withProperty("last",
-                        item -> {
-                            if  (item.getName().equals("Marketing") || item.getName().equals("Brand Experience")) {
-                                return true;
-                            } else {
-                                return false;
-                            }
-                        })
-                .withProperty("name",
-                        value -> value.getName()))
-                .setHeader("Department Name");*/
+        grid.addHierarchyColumn(Department::getName).setHeader("Department Name");
         grid.setSizeFull();
         grid.expand(departmentData.getRootDepartments());
-        //grid.setClassNameGenerator();
         return grid;
     }
 }

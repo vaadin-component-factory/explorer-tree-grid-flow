@@ -6,8 +6,8 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class DummyFileData {
-    private static final int maximumLevel = 5;
-    private static final int maximumElementPerLevel = 5;
+    private static final int maximumLevel = 100;
+    private static final int maximumElementPerLevel = 70;
     private static final List<DummyFile> DUMMY_FILE_LIST = createDummyFileList();
 
     private static List<DummyFile> createDummyFileList() {

@@ -1,29 +1,34 @@
-
+/**
+ * Override the private method __getRowModel of the Vaadin Grid.
+ *
+ *
+ * @type {{initLazy: Window.Vaadin.Flow.explorerGridConnector.initLazy}}
+ */
 window.Vaadin.Flow.explorerGridConnector = {
     initLazy: function (c) {
-        console.log("init explorerGridConnector");
         // Check whether the connector was already initialized
         if (c.$explorerconnector) {
             return;
         }
         c.$explorerconnector = {};
+        /*
+         * Override __getRowModel() to add some information in the row model.
+         * last, first, parentlines
+         */
         c.__getRowModel = function __getRowModel(row) {
-            // const level = this._getIndexLevel(row.index);
+            // don't call this._getIndexLevel(row.index) to reuse cache, scaledIndex
             let parentlines = [];
             let {cache, scaledIndex} = this._cache.getCacheAndIndex(row.index);
-            const last = (scaledIndex === cache.size - 1);
 
-            if (last) {
-                debugger;
-            }
+            const last = (scaledIndex === cache.size - 1);
             let level = 0;
             while (cache.parentCache) {
                 // there is a parent
                 let parentKey = cache.parentItem.key;
                 if ((cache.parentCache.items[cache.parentCache.size - 1] != null)  && cache.parentCache.items[cache.parentCache.size - 1].key === cache.parentItem.key) {
-                    parentlines.unshift(0); // no line
+                    parentlines.unshift(false); // no line
                 } else {
-                    parentlines.unshift(1);  // display line
+                    parentlines.unshift(true);  // display line
                 }
                 cache = cache.parentCache;
                 level++;

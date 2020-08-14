@@ -1,6 +1,5 @@
 package org.vaadin.explorer;
 
-import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.treegrid.TreeGrid;
 import com.vaadin.flow.router.Route;
@@ -11,11 +10,11 @@ import static org.vaadin.explorer.TreeGridUtil.getDummyFileTreeGrid;
 /**
  * Example with a custom theme variant "compact" to reduce the height of each rows
  */
-@Route(value = "compact", layout = MainLayout.class)
-public class CompactThemeRendererView extends Div {
+@Route(value = "dark-theme", layout = MainLayout.class)
+public class DarkThemeRendererView extends Div {
 
-
-    public CompactThemeRendererView() {
+    public DarkThemeRendererView() {
+        getElement().setAttribute("theme", "dark");
         setSizeFull();
         TreeGrid<DummyFile> grid = buildGrid();
         add(grid);
@@ -23,10 +22,8 @@ public class CompactThemeRendererView extends Div {
 
     private TreeGrid<DummyFile> buildGrid() {
         ExplorerTreeGrid<DummyFile> grid = new ExplorerTreeGrid<>();
-        grid.addThemeVariants(GridVariant.LUMO_COMPACT, GridVariant.LUMO_COLUMN_BORDERS, GridVariant.LUMO_NO_ROW_BORDERS);
-
+        grid.addThemeName("custom-theme");
         grid.addHierarchyColumn(DummyFile::getFilename, DummyFile::getIcon).setHeader("File Name");
-        grid.addColumn(DummyFile::getCode).setHeader("Code");
         return getDummyFileTreeGrid(grid);
     }
 }

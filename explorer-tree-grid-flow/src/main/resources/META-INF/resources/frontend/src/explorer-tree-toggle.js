@@ -20,13 +20,13 @@ class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) 
      
 */
     :host {
-        --explorer-tree-grid-toggle-level-offset: 2em;
-        --explorer-tree-grid-icon-type-width: 18px;
-        --explorer-tree-grid-expand-icon-width: 10px;
-        --explorer-tree-grid-icon-type-margin: 2px;
+        --explorer-tree-grid-toggle-level-offset: 2rem;
+        --explorer-tree-grid-icon-type-width: 1rem;
+        --explorer-tree-grid-expand-icon-width: 0.8rem;
+        --explorer-tree-grid-icon-type-margin: 0.1rem;
         --explorer-tree-grid-line-color: var(--lumo-contrast-50pct);
         --explorer-tree-grid-icon-color: var(--lumo-contrast-50pct);
-        --explorer-tree-grid-border-style: solid;
+        --explorer-tree-grid-border-style: dotted;
         display: inline-flex;
         align-items: center;
         margin-left: calc(var(--lumo-space-s) * -1);
@@ -38,16 +38,13 @@ class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) 
       }
 
       [part="toggle"] {
-        display: inline-flex;
-        justify-content: center;
-        font-size: var(--explorer-tree-grid-expand-icon-width);
-        line-height: 1;
-        width: var(--explorer-tree-grid-icon-type-width);
-        height: 1em;
-        text-align: center;
-        color: var(--explorer-tree-grid-icon-color);
-        /* Increase touch target area */
-        margin-top: calc(1em / -3);
+          display: inline-flex;
+          justify-content: center;
+          font-size: var(--explorer-tree-grid-expand-icon-width);
+          width: var(--explorer-tree-grid-icon-type-width);
+          min-height: 100%;
+          height:unset;
+          align-items: center;
       }
 
       :host(:not([dir="rtl"])) [part="toggle"] {
@@ -75,15 +72,13 @@ class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) 
       :host([dir="rtl"]) [part="toggle"] {
         margin-left: 0;
       }
-
-      :host([dir="rtl"][expanded]) [part="toggle"]::before {
-        transform: rotate(-90deg);
+      
+      :host([dir="rtl"]) .level-spacer::before {
+        border-left: 0;
+        margin-left: 0;
+        border-right: 1px var(--explorer-tree-grid-border-style) var(--explorer-tree-grid-line-color);
+        margin-right: calc( var(--explorer-tree-grid-icon-type-width) / 2 );
       }
-/*
-      :host([dir="rtl"]:not([expanded])) [part="toggle"]::before,
-      :host([dir="rtl"][expanded]) [part="toggle"]::before {
-        content: var(--lumo-icons-angle-left);
-      }*/
       
       :host([hidden]) {
         display: none !important;
@@ -119,7 +114,7 @@ class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) 
       :host .level-spacer {
         position: relative;
         font-size: 1em;
-        height: 1em /*calc( 1em + 4px );*/
+        height: 1em;
       }
 
       :host .level-spacer::before {
@@ -128,17 +123,9 @@ class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) 
         margin-top: calc(var(--lumo-space-m) * -1);
         height: calc(var(--lumo-space-m) + 3em);
         border-left: 1px var(--explorer-tree-grid-border-style) var(--explorer-tree-grid-line-color);
-        /* margin-left: calc(var(--explorer-tree-grid-toggle-level-offset) / 2 - 4px);*/
         margin-left: calc( var(--explorer-tree-grid-icon-type-width) / 2 );
       }
   
-      :host([dir="rtl"]) .level-spacer::before {
-        border-left: 0;
-        margin-left: 0;
-        border-right: 1px var(--explorer-tree-grid-border-style) var(--explorer-tree-grid-line-color);
-        /* margin-left: calc(var(--explorer-tree-grid-toggle-level-offset) / 2 - 4px);*/
-        margin-right: calc( var(--explorer-tree-grid-icon-type-width) / 2 );
-      }
       :host .toggle {
         position: relative;
         font-size: 1em;
@@ -147,11 +134,13 @@ class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) 
       }
       :host .toggle-hori-line {
         position: absolute;
-        right: 0;
+        top: 50%;
         height:1px;
         width: calc(100% - var(--explorer-tree-grid-icon-type-width) / 2 );
         border-top: 1px var(--explorer-tree-grid-border-style) var(--explorer-tree-grid-line-color);
-        margin-top: 0.8em;
+      }
+      :host(:not([dir="rtl"])) .toggle-hori-line {
+        right: 0;
       }
       :host([dir="rtl"]) .toggle-hori-line {
         left: 0;
@@ -159,9 +148,8 @@ class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) 
       :host .toggle-top-line {
         position: absolute;
         margin-top: calc(var(--lumo-space-m) * -1);
-        height: calc(var(--lumo-space-m) + 0.9em - 1px);
+        height: calc(var(--lumo-space-m) + 50%);
         width: 1px;
-        /* margin-left: calc(var(--explorer-tree-grid-toggle-level-offset) / 2 - 4px);*/
         margin-left: calc( var(--explorer-tree-grid-icon-type-width) / 2 );
         border-left: 1px var(--explorer-tree-grid-border-style) var(--explorer-tree-grid-line-color);
       }
@@ -169,17 +157,19 @@ class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) 
       :host .toggle-bottom-line {
         position: absolute;
         bottom: 0;
-        height: calc(var(--lumo-space-m) + 0.9em + 1px);
+        height: calc(var(--lumo-space-m) + 50% - 1px);
         margin-bottom: calc(var(--lumo-space-m) * -1);
         width: 1px;
-        /*margin-left: calc(var(--explorer-tree-grid-toggle-level-offset) / 2 - 4px);*/
         margin-left: calc( var(--explorer-tree-grid-icon-type-width) / 2 );
         border-left: 1px var(--explorer-tree-grid-border-style) var(--explorer-tree-grid-line-color);
       }
       
+      :host .toggle-bottom-line {
+          height: calc(var(--lumo-space-m) + 50% - 1px);
+      }
+      
       :host([dir="rtl"]) .toggle-top-line,
-      :host([dir="rtl"]) .toggle-bottom-line,
-       {
+      :host([dir="rtl"]) .toggle-bottom-line {
         border-left: 0;
         margin-left: 0;
         margin-right: calc( var(--explorer-tree-grid-icon-type-width) / 2 );
@@ -195,36 +185,36 @@ class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) 
       }
       
       [part="toggle"]::before {
-          background: white;
-          transform: rotate(0deg);
-          border: 1px solid var(--explorer-tree-grid-icon-color);
+        background: var(--lumo-base-color);
+        transform: rotate(0deg);
+        border: 1px solid var(--explorer-tree-grid-icon-color);
       }
       
       :host([expanded]) [part="toggle"]::before {
-          content: var(--lumo-icons-minus);
+        content: var(--lumo-icons-minus);
       }
       
       :host(:not([expanded])) [part="toggle"]::before {
-          content: var(--lumo-icons-plus);
+        content: var(--lumo-icons-plus);
       }
       
       :host([leaf]) [part="toggle"] {
-          visibility: visible;
-          content: "";
+        visibility: visible;
+        content: "";
       }
       
       :host([leaf]) [part="toggle"]::before {
-          content: "";
-          border: 0;
+        content: "";
+        border: 0;
       }
     
-    .icon-type {
+      .icon-type {
         color: var(--explorer-tree-grid-icon-color);
         margin-left: var(--explorer-tree-grid-icon-type-margin);
         margin-right: var(--explorer-tree-grid-icon-type-margin);
        --iron-icon-height: calc( var(--explorer-tree-grid-icon-type-width) - var(--explorer-tree-grid-icon-type-margin) );
        --iron-icon-width: calc( var(--explorer-tree-grid-icon-type-width) - var(--explorer-tree-grid-icon-type-margin) );
-    }
+      }
       
     </style>
     <template is="dom-repeat" items="{{parentlines}}">
@@ -263,10 +253,14 @@ class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) 
         value: 0,
         observer: '_levelChanged'
       },
-      
+      /**
+       * Array of boolean that contains all the information of the parents
+       * - true if the parent is not the last child (and display a vertical line to its next sibling)
+       * - false if the parent is the last child (and hide the line)
+       */
       parentlines: {
         type: Array,
-        value: [5,6]
+        value: []
       },
       /**
        * Hides the toggle icon and disables toggling a tree sublevel.
@@ -278,7 +272,7 @@ class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) 
       },
 
       /**
-       *
+       * true if the item is the last item of its level
        */
       last: {
         type: Boolean,
@@ -287,7 +281,7 @@ class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) 
       },
 
       /**
-       *
+       * Icon to show
        */
       icon: {
         type: String,
@@ -295,6 +289,9 @@ class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) 
         reflectToAttribute: true
       },
 
+      /**
+       * true if the item is the first item of the grid
+       */
       first: {
         type: Boolean,
         value: false,
@@ -316,54 +313,7 @@ class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) 
     super.ready();
     this.addEventListener('click', e => this._onClick(e));
   }
-/*
-  _updateTest() {
-    //debugger;
-    if (this.parentElement) {
-      //debugger;
-      if (this.parentElement.nextElementSibling != null) {
-        const nextChild = this.parentElement.nextElementSibling.firstElementChild;
-        if (nextChild != null) {
-          const nextLevel = nextChild.style["---level"];
-          if (this.level == nextLevel) {
-            console.log("next element same level");
-          } else if (this.level > nextLevel) {
-            console.log("next element PARENT level");
-          } else {
-            console.log("next element CHILD level");
-          }
-        }
-      } else {
-        console.log("next element NULL -  level");
-      }
-      if (this.parentElement.previousElementSibling != null) {
-        const previousChild = this.parentElement.previousElementSibling.firstElementChild;
-        if (previousChild != null) {
-          const previousLevel = previousChild.style["---level"];
-          if (this.level == previousLevel) {
-            console.log("previous element same level");
-          } else if (this.level > previousLevel) {
-            console.log("previous element PARENT level");
-          } else {
-            previousChild.style.color = "red";
-            console.log("previous element CHILD level");
-          }
-        } else {
-          this.style.color = "purple";
-        }
-      } else {
-        console.log("previous element NULL -  level");
-        this.style.color = "blue";
-      }
-    }
-  }*/
-  /*
-  connectedCallback() {
-    super.connectedCallback();
-    console.log("PARENT "+this.parentElement.tagName + '.' + this.parentElement.className);
-    console.log("PARENT "+this.parentNode.tagName + '.' + this.parentNode.className);
-  }
-*/
+
   _onClick(e) {
     if (this.leaf) {
       return;

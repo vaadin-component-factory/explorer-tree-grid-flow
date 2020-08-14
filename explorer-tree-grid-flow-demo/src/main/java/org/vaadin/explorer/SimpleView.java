@@ -16,7 +16,7 @@ import org.vaadin.explorer.bean.Person;
 import org.vaadin.explorer.bean.PersonUtil;
 
 /**
- * @author jcgueriaud
+ * Basic example with setItems
  */
 @Route(value = "", layout = MainLayout.class)
 public class SimpleView extends Div {
@@ -33,7 +33,7 @@ public class SimpleView extends Div {
         ExplorerTreeGrid<Department> grid = new ExplorerTreeGrid<>();
         grid.setItems(departmentData.getRootDepartments(),
                 departmentData::getChildDepartments);
-        grid.addHierarchyColumn(value -> value.getName()).setHeader("Department Name");
+        grid.addHierarchyColumn(Department::getName).setHeader("Department Name");
         grid.setSizeFull();
         grid.expand(departmentData.getRootDepartments());
         return grid;
