@@ -1,0 +1,10 @@
+:host([theme~="compact"]) [part~="cell"] {
+    min-height: var(--lumo-size-xxs);
+}
+:host([theme~="compact"])  {
+    font-size: var(--lumo-font-size-xs);
+}
+
+:host([theme~="compact"]) [part~="cell"] ::slotted(vaadin-grid-cell-content) {
+    padding: var(--lumo-space-xs) var(--lumo-space-s);
+}

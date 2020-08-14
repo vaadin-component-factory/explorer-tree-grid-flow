@@ -10,7 +10,6 @@ import static org.vaadin.explorer.TreeGridUtil.getDummyFileTreeGrid;
 /**
  * Example with a text and an icon
  */
-// @CssImport(value="src/custom-explorer-tree-grid.css", themeFor = "explorer-tree-grid-toggle")
 @Route(value = "explorer", layout = MainLayout.class)
 public class ExplorerView extends Div {
 

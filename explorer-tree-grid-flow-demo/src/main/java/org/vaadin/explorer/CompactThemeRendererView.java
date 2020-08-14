@@ -1,5 +1,6 @@
 package org.vaadin.explorer;
 
+import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.treegrid.TreeGrid;
@@ -11,6 +12,7 @@ import static org.vaadin.explorer.TreeGridUtil.getDummyFileTreeGrid;
 /**
  * Example with a custom theme variant "compact" to reduce the height of each rows
  */
+@CssImport(value="./src/compact-vaadin-tree-grid.css", themeFor = "vaadin-grid")
 @Route(value = "compact", layout = MainLayout.class)
 public class CompactThemeRendererView extends Div {
 
