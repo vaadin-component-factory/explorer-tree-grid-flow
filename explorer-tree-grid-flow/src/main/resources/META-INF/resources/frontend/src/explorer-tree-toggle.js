@@ -1,8 +1,4 @@
-/**
-@license
-Copyright (c) 2017 Vaadin Ltd.
-This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
-*/
+
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 
 import '@polymer/polymer/lib/elements/custom-style.js';
@@ -11,7 +7,12 @@ import { ThemableMixin } from '@vaadin/vaadin-themable-mixin/vaadin-themable-mix
 import { DirMixin } from '@vaadin/vaadin-element-mixin/vaadin-dir-mixin.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { microTask } from '@polymer/polymer/lib/utils/async.js';
-
+/**
+ *
+ * This is a copy of the <code>vaadin-grid-tree-toggle</code> web component
+ * The styles and inner HTML are different.
+ * The logic is the same.
+ */
 class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) {
   static get template() {
     return html`
