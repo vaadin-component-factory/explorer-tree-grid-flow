@@ -107,7 +107,7 @@ public class ExplorerTreeHierarchyColumnComponentRenderer<COMPONENT extends Comp
         /* The next line has been customized */
         templateInnerHtml = "<explorer-tree-grid-toggle  class$='[[item.cssClassName]]' "
                 + "leaf='[[item.leaf]]' last='[[last]]' first='[[first]]' parentlines='{{parentlines}}' expanded='{{expanded}}' " +
-                "level='[[level]]'>" + templateInnerHtml + "</explorer-tree-grid-toggle>";
+                ">" + templateInnerHtml + "</explorer-tree-grid-toggle>";
         /* End of customization */
         templateElement.setProperty("innerHTML", templateInnerHtml);
     }
