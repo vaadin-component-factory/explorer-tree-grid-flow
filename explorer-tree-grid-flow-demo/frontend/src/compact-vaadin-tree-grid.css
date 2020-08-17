@@ -6,13 +6,9 @@
 }
 
 :host([theme~="compact"]) [part~="cell"] ::slotted(vaadin-grid-cell-content) {
-    padding: var(--lumo-space-xs) var(--lumo-space-s);
-}
-
-:host([theme~="compact"]) [part~="cell"] ::slotted(vaadin-grid-cell-content) {
     padding: 1px var(--lumo-space-s);
 }
-
+/** Adjust the line height to remove the space between each row **/
 :host([theme~="compact"]) {
     --custom-line-height: 2em;
 }
