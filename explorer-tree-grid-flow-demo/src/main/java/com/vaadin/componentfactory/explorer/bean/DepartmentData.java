@@ -9,7 +9,6 @@ public class DepartmentData {
     private static final List<Department> DEPARTMENT_LIST = createDepartmentList();
 
     private static List<Department> createDepartmentList() {
-        System.out.println("createDepartmentList");
         List<Department> departmentList = new ArrayList<>();
 
         departmentList
