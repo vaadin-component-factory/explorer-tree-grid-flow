@@ -1,22 +1,77 @@
 
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-
+import { LitElement, html } from 'lit-element';
+import { ThemableElement } from '@vaadin/themable-element';
 import '@polymer/polymer/lib/elements/custom-style.js';
-import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
-import { ThemableMixin } from '@vaadin/vaadin-themable-mixin/vaadin-themable-mixin.js';
 import { DirMixin } from '@vaadin/vaadin-element-mixin/vaadin-dir-mixin.js';
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
-import { microTask } from '@polymer/polymer/lib/utils/async.js';
 /**
  *
  * This is a copy of the <code>vaadin-grid-tree-toggle</code> web component
+ * It has been converted to Lit element for performance reasons
+ * (the loop introduced in the component is really slow in polymer)
  * The styles and inner HTML are different.
  * The logic is the same.
  */
-class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) {
-  static get template() {
-    return html`
-    <style>
+class ExplorerTreeToggleElement extends ThemableElement(DirMixin(LitElement)) {
+
+
+  static get properties() {
+    return {
+      /**
+       * Array of boolean that contains all the information of the parents
+       * - true if the parent is not the last child (and display a vertical line to its next sibling)
+       * - false if the parent is the last child (and hide the line)
+       */
+      parentlines: { type: Array },
+      /**
+       * Hides the toggle icon and disables toggling a tree sublevel.
+       */
+      leaf: {
+        type: Boolean,
+        reflect: true
+      },
+
+      /**
+       * true if the item is the last item of its level
+       */
+      last: {
+        type: Boolean,
+        reflect: true
+      },
+
+      /**
+       * Icon to show
+       */
+      icon: {
+        type: String,
+        reflect: true
+      },
+
+      /**
+       * true if the item is the first item of the grid
+       */
+      first: {
+        type: Boolean,
+        reflect: true
+      },
+      /**
+       * Sublevel toggle state.
+       */
+      expanded: {
+        type: Boolean,
+        reflect: true
+      }
+    };
+  }
+
+  constructor() {
+    super();
+    this.parentlines = [];
+    this.expanded = false;
+    this.icon = "";
+  }
+
+  render() {
+    return html`<style>
     
     :host {
         --explorer-tree-grid-toggle-level-offset: 1.5rem;
@@ -220,123 +275,39 @@ class ExplorerTreeToggleElement extends ThemableMixin(DirMixin(PolymerElement)) 
       }
       
     </style>
-    <template is="dom-repeat" items="{{parentlines}}">
-      <template is="dom-if" if="{{item}}">
-      <span class="level-spacer"> </span>
-      </template>
-      <template is="dom-if" if="{{!item}}">
-      <span class="level-spacer level-spacer-hidden"></span>
-      </template>
-    </template>
+    ${this.parentlines.map(item =>
+        item ? html`<span class="level-spacer"> </span>` : html`<span class="level-spacer level-spacer-hidden"> </span>`
+    )}
     <span class="toggle">
       <span class="toggle-top-line"></span>
       <span class="toggle-bottom-line"></span>
       <span class="toggle-hori-line"></span>
       <span part="toggle"></span>
     </span>
-    <template is="dom-if" if="[[icon]]">
-        <iron-icon class="icon-type" icon='[[icon]]'></iron-icon>
-    </template>
-    <slot></slot>
-`;
+    ${(this.icon != "")?
+        html`<iron-icon class="icon-type" icon='${this.icon}'></iron-icon>`:
+        ``}
+    <slot></slot>`;
   }
 
   static get is() {
     return 'explorer-tree-grid-toggle';
   }
-
-  static get properties() {
-    return {
-      /**
-       * Current level of the tree represented with a horizontal offset
-       * of the toggle button.
-       */
-      level: {
-        type: Number,
-        value: 0,
-        observer: '_levelChanged'
-      },
-      /**
-       * Array of boolean that contains all the information of the parents
-       * - true if the parent is not the last child (and display a vertical line to its next sibling)
-       * - false if the parent is the last child (and hide the line)
-       */
-      parentlines: {
-        type: Array,
-        value: []
-      },
-      /**
-       * Hides the toggle icon and disables toggling a tree sublevel.
-       */
-      leaf: {
-        type: Boolean,
-        value: false,
-        reflectToAttribute: true
-      },
-
-      /**
-       * true if the item is the last item of its level
-       */
-      last: {
-        type: Boolean,
-        value: false,
-        reflectToAttribute: true
-      },
-
-      /**
-       * Icon to show
-       */
-      icon: {
-        type: String,
-        value: "",
-        reflectToAttribute: true
-      },
-
-      /**
-       * true if the item is the first item of the grid
-       */
-      first: {
-        type: Boolean,
-        value: false,
-        reflectToAttribute: true
-      },
-      /**
-       * Sublevel toggle state.
-       */
-      expanded: {
-        type: Boolean,
-        value: false,
-        reflectToAttribute: true,
-        notify: true
-      }
-    };
+  async firstUpdated() {
+    this.addEventListener('click', this._handleClick);
   }
 
-  ready() {
-    super.ready();
-    this.addEventListener('click', e => this._onClick(e));
-  }
-
-  _onClick(e) {
+  _handleClick(e) {
     if (this.leaf) {
       return;
     }
 
     e.preventDefault();
     this.expanded = !this.expanded;
+    const event = new CustomEvent('expanded-changed', { bubbles: true, composed: true });
+    this.dispatchEvent(event);
   }
 
-  _levelChanged(level) {
-    const value = Number(level).toString();
-    this.style['---level'] = value;
-    // Async is to make DOM updates applied before evaluating the style
-    // update, required for polyfilled RTL support in MSIE and Edge.
-    this._debouncerUpdateLevel = Debouncer.debounce(
-      this._debouncerUpdateLevel,
-      microTask,
-      () => this.updateStyles({'---level': value})
-    );
-  }
 }
 
 customElements.define(ExplorerTreeToggleElement.is, ExplorerTreeToggleElement);

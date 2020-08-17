@@ -10,18 +10,18 @@ import static com.vaadin.componentfactory.explorer.TreeGridUtil.getDummyFileTree
 /**
  * @author jcgueriaud
  */
-@Route(value = "explorer-tree", layout = MainLayout.class)
-public class LazyTreeView extends Div {
+@Route(value = "explorer-tree-grid", layout = MainLayout.class)
+public class LazyTreeGridView extends Div {
 
 
-    public LazyTreeView() {
+    public LazyTreeGridView() {
         setSizeFull();
         TreeGrid<DummyFile> grid = buildGrid();
         add(grid);
     }
 
     private TreeGrid<DummyFile> buildGrid() {
-        ExplorerTreeGrid<DummyFile> grid = new ExplorerTreeGrid<>();
+        TreeGrid<DummyFile> grid = new TreeGrid<>();
         grid.addHierarchyColumn(DummyFile::getFilename).setHeader("File Name");
 
         return getDummyFileTreeGrid(grid);

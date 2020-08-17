@@ -1,3 +1,8 @@
 :host {
     --explorer-tree-grid-toggle-level-offset: 2rem;
+    --explorer-tree-grid-border-style: solid;
+}
+
+:host .toggle {
+    height: var(--custom-line-height);
 }

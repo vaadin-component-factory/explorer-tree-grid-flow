@@ -20,6 +20,7 @@ package com.vaadin.componentfactory.explorer;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.JavaScript;
+import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.treegrid.TreeGrid;
@@ -37,6 +38,7 @@ import java.io.Serializable;
  *            the grid bean type
  */
 @Uses(Icon.class)
+@NpmPackage(value="@vaadin/themable-element", version = "0.3.0")
 @CssImport("./src/explorer-tree-toggle.js")
 @JavaScript("./src/explorer-grid-connector.js")
 public class ExplorerTreeGrid<T> extends TreeGrid<T> {
@@ -56,7 +58,7 @@ public class ExplorerTreeGrid<T> extends TreeGrid<T> {
      */
     @Override
     public Column<T> addHierarchyColumn(ValueProvider<T, ?> labelProvider) {
-        return addHierarchyColumn(labelProvider, object -> "vaadin:folder-open-o");
+        return addHierarchyColumn(labelProvider, object -> "");
     }
     /**
      * To update with prefix icon, suffix icon
@@ -69,7 +71,7 @@ public class ExplorerTreeGrid<T> extends TreeGrid<T> {
         Column<T> column = addColumn(TemplateRenderer
                 .<T>of("<explorer-tree-grid-toggle "
                         + "leaf='[[item.leaf]]' last='[[last]]' icon='[[item.icon]]' first='[[first]]' parentlines='{{parentlines}}' expanded='{{expanded}}' " +
-                        "level='[[level]]'>[[item.name]]  "
+                        ">[[item.name]]  "
                         + "</explorer-tree-grid-toggle>")
                 .withProperty("leaf",
                         item -> {
