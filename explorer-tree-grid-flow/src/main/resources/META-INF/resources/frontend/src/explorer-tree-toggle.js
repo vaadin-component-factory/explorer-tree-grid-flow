@@ -11,7 +11,7 @@ import { DirMixin } from '@vaadin/vaadin-element-mixin/vaadin-dir-mixin.js';
  * The styles and inner HTML are different.
  * The logic is the same.
  */
-class ExplorerTreeToggleElement extends ThemableElement(DirMixin(LitElement)) {
+class ExplorerTreeToggleElement extends DirMixin(ThemableElement) {
 
 
   static get properties() {
@@ -284,7 +284,7 @@ class ExplorerTreeToggleElement extends ThemableElement(DirMixin(LitElement)) {
       <span class="toggle-hori-line"></span>
       <span part="toggle"></span>
     </span>
-    ${(this.icon != "")?
+    ${(this.icon !== "")?
         html`<iron-icon class="icon-type" icon='${this.icon}'></iron-icon>`:
         ``}
     <slot></slot>`;
@@ -293,6 +293,7 @@ class ExplorerTreeToggleElement extends ThemableElement(DirMixin(LitElement)) {
   static get is() {
     return 'explorer-tree-grid-toggle';
   }
+
   async firstUpdated() {
     this.addEventListener('click', this._handleClick);
   }
