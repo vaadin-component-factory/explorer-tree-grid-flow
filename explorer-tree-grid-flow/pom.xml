@@ -4,17 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>com.vaadin.componentfactory</groupId>
     <artifactId>explorer-tree-grid-flow</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <packaging>jar</packaging>
 
     <name>Explorer Tree Grid</name>
     <description>Explorer Tree Grid - Add connectors to the tree grid between parent and children</description>
-    <parent>
-        <groupId>com.vaadin.componentfactory</groupId>
-        <artifactId>explorer-tree-grid-flow-root</artifactId>
-        <version>1.0.1</version>
-    </parent>
+
     <inceptionYear>2020</inceptionYear>
     <organization>
         <name>Vaadin Ltd</name>
@@ -27,6 +24,25 @@
         </license>
     </licenses>
 
+    <properties>
+        <vaadin.version>14.3.2</vaadin.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.vaadin</groupId>
+                <artifactId>vaadin-bom</artifactId>
+                <type>pom</type>
+                <scope>import</scope>
+                <version>${vaadin.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <repositories>
         <repository>
             <id>Vaadin Directory</id>
@@ -92,16 +108,6 @@
             </exclusions>
         </dependency>
 
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <build>

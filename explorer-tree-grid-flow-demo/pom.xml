@@ -4,16 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>com.vaadin.componentfactory</groupId>
     <artifactId>explorer-tree-grid-flow-demo</artifactId>
     <version>1.0.1</version>
 
     <name>Explorer Tree Grid Demo</name>
     <packaging>war</packaging>
-    <parent>
-        <groupId>com.vaadin.componentfactory</groupId>
-        <artifactId>explorer-tree-grid-flow-root</artifactId>
-        <version>1.0.1</version>
-    </parent>
+
     <inceptionYear>2020</inceptionYear>
     <organization>
         <name>Vaadin Ltd</name>
@@ -26,6 +23,11 @@
         </license>
     </licenses>
     <properties>
+        <vaadin.version>14.3.2</vaadin.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <failOnMissingWebXml>false</failOnMissingWebXml>
     </properties>
     <dependencyManagement>
@@ -109,6 +111,7 @@
        <dependency>
            <groupId>com.vaadin.componentfactory</groupId>
            <artifactId>explorer-tree-grid-flow</artifactId>
+           <version>1.0.2</version>
        </dependency>
         <!-- https://mvnrepository.com/artifact/com.vaadin/flow-component-demo-helpers -->
         <dependency>
@@ -193,21 +196,15 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-maven-plugin</artifactId>
-                        <configuration>
-                            <jvmArguments>-Dvaadin.productionMode</jvmArguments>
-                        </configuration>
-                    </plugin>
-                    <plugin>
                         <groupId>com.vaadin</groupId>
                         <artifactId>vaadin-maven-plugin</artifactId>
+                        <version>${vaadin.version}</version>
                         <executions>
                             <execution>
                                 <goals>
+                                    <goal>prepare-frontend</goal>
                                     <goal>build-frontend</goal>
                                 </goals>
-                                <phase>compile</phase>
                             </execution>
                         </executions>
                     </plugin>
