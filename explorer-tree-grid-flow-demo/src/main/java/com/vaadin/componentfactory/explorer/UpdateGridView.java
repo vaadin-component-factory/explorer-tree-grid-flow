@@ -1,5 +1,6 @@
-package org.vaadin.explorer;
+package com.vaadin.componentfactory.explorer;
 
+import com.vaadin.componentfactory.explorer.bean.DepartmentData;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.html.Span;
@@ -14,8 +15,7 @@ import com.vaadin.flow.data.provider.hierarchy.AbstractBackEndHierarchicalDataPr
 import com.vaadin.flow.data.provider.hierarchy.HierarchicalDataProvider;
 import com.vaadin.flow.data.provider.hierarchy.HierarchicalQuery;
 import com.vaadin.flow.router.Route;
-import org.vaadin.explorer.bean.Department;
-import org.vaadin.explorer.bean.DepartmentData;
+import com.vaadin.componentfactory.explorer.bean.Department;
 
 import java.util.stream.Stream;
 

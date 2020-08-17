@@ -1,11 +1,11 @@
-package org.vaadin.explorer;
+package com.vaadin.componentfactory.explorer;
 
+import com.vaadin.componentfactory.explorer.bean.DummyFile;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.treegrid.TreeGrid;
 import com.vaadin.flow.router.Route;
-import org.vaadin.explorer.bean.DummyFile;
 
-import static org.vaadin.explorer.TreeGridUtil.getDummyFileTreeGrid;
+import static com.vaadin.componentfactory.explorer.TreeGridUtil.getDummyFileTreeGrid;
 
 /**
  * @author jcgueriaud

@@ -1,19 +1,10 @@
-package org.vaadin.explorer;
+package com.vaadin.componentfactory.explorer;
 
-import com.vaadin.flow.component.dependency.CssImport;
-import com.vaadin.flow.component.dependency.Uses;
+import com.vaadin.componentfactory.explorer.bean.DepartmentData;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.icon.Icon;
-import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.treegrid.TreeGrid;
-import com.vaadin.flow.data.provider.DataProvider;
-import com.vaadin.flow.data.provider.ListDataProvider;
-import com.vaadin.flow.data.renderer.TemplateRenderer;
 import com.vaadin.flow.router.Route;
-import org.vaadin.explorer.bean.Department;
-import org.vaadin.explorer.bean.DepartmentData;
-import org.vaadin.explorer.bean.Person;
-import org.vaadin.explorer.bean.PersonUtil;
+import com.vaadin.componentfactory.explorer.bean.Department;
 
 /**
  * Basic example with setItems

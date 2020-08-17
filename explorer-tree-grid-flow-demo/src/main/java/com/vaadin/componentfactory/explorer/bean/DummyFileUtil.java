@@ -1,6 +1,4 @@
-package org.vaadin.explorer.bean;
-
-import com.vaadin.flow.component.icon.VaadinIcon;
+package com.vaadin.componentfactory.explorer.bean;
 
 import java.util.ArrayList;
 import java.util.List;

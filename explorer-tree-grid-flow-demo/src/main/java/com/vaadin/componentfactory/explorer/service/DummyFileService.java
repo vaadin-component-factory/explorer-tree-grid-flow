@@ -1,6 +1,6 @@
-package org.vaadin.explorer.service;
+package com.vaadin.componentfactory.explorer.service;
 
-import org.vaadin.explorer.bean.DummyFile;
+import com.vaadin.componentfactory.explorer.bean.DummyFile;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package org.vaadin.explorer.bean;
+package com.vaadin.componentfactory.explorer.bean;
 
 import java.util.Objects;
 

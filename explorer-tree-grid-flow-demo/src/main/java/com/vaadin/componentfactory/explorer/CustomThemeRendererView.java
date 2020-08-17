@@ -1,23 +1,20 @@
-package org.vaadin.explorer;
+package com.vaadin.componentfactory.explorer;
 
-import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.treegrid.TreeGrid;
 import com.vaadin.flow.router.Route;
-import org.vaadin.explorer.bean.DummyFile;
+import com.vaadin.componentfactory.explorer.bean.DummyFile;
 
-import static org.vaadin.explorer.TreeGridUtil.getDummyFileTreeGrid;
+import static com.vaadin.componentfactory.explorer.TreeGridUtil.getDummyFileTreeGrid;
 
 /**
  * Example with a custom theme variant "compact" to reduce the height of each rows
  */
-@CssImport(value="./src/compact-vaadin-tree-grid.css", themeFor = "vaadin-grid")
-@Route(value = "compact", layout = MainLayout.class)
-public class CompactThemeRendererView extends Div {
+@Route(value = "custom-theme", layout = MainLayout.class)
+public class CustomThemeRendererView extends Div {
 
-
-    public CompactThemeRendererView() {
+    public CustomThemeRendererView() {
         setSizeFull();
         TreeGrid<DummyFile> grid = buildGrid();
         add(grid);
@@ -25,7 +22,8 @@ public class CompactThemeRendererView extends Div {
 
     private TreeGrid<DummyFile> buildGrid() {
         ExplorerTreeGrid<DummyFile> grid = new ExplorerTreeGrid<>();
-        grid.addThemeVariants(GridVariant.LUMO_COMPACT, GridVariant.LUMO_COLUMN_BORDERS, GridVariant.LUMO_NO_ROW_BORDERS);
+        grid.addThemeVariants(GridVariant.LUMO_COLUMN_BORDERS, GridVariant.LUMO_NO_ROW_BORDERS);
+        grid.addThemeName("custom-theme");
 
         grid.addHierarchyColumn(DummyFile::getFilename, DummyFile::getIcon).setHeader("File Name");
         grid.addColumn(DummyFile::getCode).setHeader("Code");

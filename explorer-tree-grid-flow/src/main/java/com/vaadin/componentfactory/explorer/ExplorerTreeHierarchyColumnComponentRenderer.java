@@ -1,4 +1,4 @@
-package org.vaadin.explorer;
+package com.vaadin.componentfactory.explorer;
 
 /*
  * #%L

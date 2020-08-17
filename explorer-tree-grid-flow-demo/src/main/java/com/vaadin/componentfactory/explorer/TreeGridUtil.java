@@ -1,11 +1,11 @@
-package org.vaadin.explorer;
+package com.vaadin.componentfactory.explorer;
 
+import com.vaadin.componentfactory.explorer.bean.DummyFile;
+import com.vaadin.componentfactory.explorer.service.DummyFileService;
 import com.vaadin.flow.component.treegrid.TreeGrid;
 import com.vaadin.flow.data.provider.hierarchy.AbstractBackEndHierarchicalDataProvider;
 import com.vaadin.flow.data.provider.hierarchy.HierarchicalDataProvider;
 import com.vaadin.flow.data.provider.hierarchy.HierarchicalQuery;
-import org.vaadin.explorer.bean.DummyFile;
-import org.vaadin.explorer.service.DummyFileService;
 
 import java.util.stream.Stream;
 

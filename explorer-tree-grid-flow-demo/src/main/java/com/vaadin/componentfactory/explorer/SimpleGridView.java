@@ -1,17 +1,10 @@
-package org.vaadin.explorer;
+package com.vaadin.componentfactory.explorer;
 
-import com.vaadin.flow.component.dependency.CssImport;
-import com.vaadin.flow.component.dependency.Uses;
+import com.vaadin.componentfactory.explorer.bean.DepartmentData;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.treegrid.TreeGrid;
-import com.vaadin.flow.data.provider.hierarchy.HierarchicalDataCommunicator;
-import com.vaadin.flow.data.renderer.TemplateRenderer;
-import com.vaadin.flow.function.SerializableComparator;
 import com.vaadin.flow.router.Route;
-import org.vaadin.explorer.bean.Department;
-import org.vaadin.explorer.bean.DepartmentData;
-import org.vaadin.explorer.bean.Person;
+import com.vaadin.componentfactory.explorer.bean.Department;
 
 /**
  * Basic example with setItems for the Vaadin TreeGrid

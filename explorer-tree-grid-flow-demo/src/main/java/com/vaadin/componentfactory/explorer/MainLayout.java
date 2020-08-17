@@ -1,4 +1,4 @@
-package org.vaadin.explorer;
+package com.vaadin.componentfactory.explorer;
 
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;

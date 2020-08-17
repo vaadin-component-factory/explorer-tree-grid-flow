@@ -1,4 +1,4 @@
-package org.vaadin.explorer.bean;
+package com.vaadin.componentfactory.explorer.bean;
 
 /**
  * @author jcgueriaud
