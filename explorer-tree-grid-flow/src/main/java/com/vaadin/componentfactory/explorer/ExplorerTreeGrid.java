@@ -6,29 +6,44 @@ package com.vaadin.componentfactory.explorer;
  * %%
  * Copyright (C) 2020 Vaadin Ltd
  * %%
- * This program is available under Commercial Vaadin Add-On License 3.0
- * (CVALv3).
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  * 
- * See the file license.html distributed with this software for more
- * information about licensing.
+ *      http://www.apache.org/licenses/LICENSE-2.0
  * 
- * You should have received a copy of the CVALv3 along with this program.
- * If not, see <http://vaadin.com/license/cval-3>.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  * #L%
  */
 
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.JavaScript;
 import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.dependency.Uses;
+import com.vaadin.flow.component.grid.AbstractGridMultiSelectionModel;
+import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.grid.GridSelectionModel;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.treegrid.TreeGrid;
+import com.vaadin.flow.data.provider.hierarchy.HierarchicalQuery;
 import com.vaadin.flow.data.renderer.TemplateRenderer;
+import com.vaadin.flow.data.selection.SelectionEvent;
 import com.vaadin.flow.function.SerializableComparator;
 import com.vaadin.flow.function.ValueProvider;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * A grid component for displaying hierarchical tabular data
@@ -93,5 +108,53 @@ public class ExplorerTreeGrid<T> extends TreeGrid<T> {
         return addColumn(new ExplorerTreeHierarchyColumnComponentRenderer<V, T>(
                 componentProvider).withProperty("leaf",
                 item -> !getDataCommunicator().hasChildren(item)));
+    }
+
+    public GridSelectionModel<T> setHierarchicalSelectionMode(SelectionMode selectionMode) {
+        if (SelectionMode.MULTI == selectionMode) {
+            GridSelectionModel<T> model = new AbstractGridMultiSelectionModel<T>(this) {
+                @Override
+                protected void fireSelectionEvent(SelectionEvent<Grid<T>, T> event) {
+                    ((ExplorerTreeGrid<T>) this.getGrid()).fireEvent((ComponentEvent<Grid<?>>) event);
+                }
+
+                @Override
+                public void selectFromClient(T item) {
+                    updateSelection(new HashSet<>(getChildrenRecursively(Collections.singletonList(item), 99)),
+                        Collections.emptySet());
+                }
+
+                @Override
+                public void deselectFromClient(T item) {
+                    updateSelection(Collections.emptySet(), new HashSet<>(getChildrenRecursively(Collections.singletonList(item), 99)));
+                }
+
+            };
+            setSelectionModel(model, selectionMode);
+            return model;
+        } else {
+            return super.setSelectionMode(selectionMode);
+        }
+    }
+
+
+    protected Collection<T> getChildrenRecursively(Collection<T> items,
+                                                            int depth) {
+        List<T> itemsWithChildren = new ArrayList<>();
+        if (depth < 0) {
+            return itemsWithChildren;
+        }
+        items.stream()
+            .forEach(item -> {
+                itemsWithChildren.add(item);
+                if (getDataCommunicator().hasChildren(item)) {
+                    itemsWithChildren.addAll(
+                        getChildrenRecursively(getDataProvider()
+                            .fetchChildren(
+                                new HierarchicalQuery<>(null, item))
+                            .collect(Collectors.toList()), depth - 1));
+                }
+            });
+        return itemsWithChildren;
     }
 }

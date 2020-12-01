@@ -1,10 +1,5 @@
 # 
 
-
-## Licence
-
-This component is part of Vaadin Prime. Still, open source you need to have a valid CVAL license in order to use it. Read more at: [vaadin.com/pricing](https://vaadin.com/pricing)
-
 ## Development instructions
 
 Starting the demo server:
@@ -102,3 +97,7 @@ By default, there are few css variables that help you to change the style of the
 The add-on is working in Dark Mode and RTL. The theme is based on Lumo.
 
 If you want to use Material Theme, then you will have to set the variables and also the expand/collapse icon.
+
+## Licence
+
+Apache 2.0

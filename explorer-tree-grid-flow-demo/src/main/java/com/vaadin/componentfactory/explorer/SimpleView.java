@@ -1,6 +1,7 @@
 package com.vaadin.componentfactory.explorer;
 
 import com.vaadin.componentfactory.explorer.bean.DepartmentData;
+import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.treegrid.TreeGrid;
 import com.vaadin.flow.router.Route;
@@ -27,6 +28,7 @@ public class SimpleView extends Div {
         grid.addHierarchyColumn(Department::getName).setHeader("Department Name");
         grid.setSizeFull();
         grid.expand(departmentData.getRootDepartments());
+        grid.setHierarchicalSelectionMode(Grid.SelectionMode.MULTI);
         return grid;
     }
 }

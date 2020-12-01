@@ -6,7 +6,7 @@
 
     <groupId>com.vaadin.componentfactory</groupId>
     <artifactId>explorer-tree-grid-flow-demo</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
 
     <name>Explorer Tree Grid Demo</name>
     <packaging>war</packaging>
@@ -16,12 +16,7 @@
         <name>Vaadin Ltd</name>
         <url>http://vaadin.com/</url>
     </organization>
-    <licenses>
-        <license>
-            <name>CVALv3</name>
-            <url>https://vaadin.com/license/cval-3</url>
-        </license>
-    </licenses>
+
     <properties>
         <vaadin.version>14.3.2</vaadin.version>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -111,7 +106,7 @@
        <dependency>
            <groupId>com.vaadin.componentfactory</groupId>
            <artifactId>explorer-tree-grid-flow</artifactId>
-           <version>1.0.3</version>
+           <version>1.0.4</version>
        </dependency>
         <!-- https://mvnrepository.com/artifact/com.vaadin/flow-component-demo-helpers -->
         <dependency>

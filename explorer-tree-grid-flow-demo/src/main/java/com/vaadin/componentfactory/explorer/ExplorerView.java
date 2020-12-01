@@ -1,9 +1,10 @@
 package com.vaadin.componentfactory.explorer;
 
+import com.vaadin.componentfactory.explorer.bean.DummyFile;
+import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.treegrid.TreeGrid;
 import com.vaadin.flow.router.Route;
-import com.vaadin.componentfactory.explorer.bean.DummyFile;
 
 import static com.vaadin.componentfactory.explorer.TreeGridUtil.getDummyFileTreeGrid;
 
@@ -22,7 +23,7 @@ public class ExplorerView extends Div {
     private TreeGrid<DummyFile> buildGrid() {
         ExplorerTreeGrid<DummyFile> grid = new ExplorerTreeGrid<>();
         grid.addHierarchyColumn(DummyFile::getFilename, DummyFile::getIcon).setHeader("File Name");
-
+        grid.setSelectionMode(Grid.SelectionMode.MULTI);
         return getDummyFileTreeGrid(grid);
     }
 
