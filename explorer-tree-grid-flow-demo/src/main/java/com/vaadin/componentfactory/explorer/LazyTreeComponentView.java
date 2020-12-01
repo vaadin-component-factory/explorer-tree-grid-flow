@@ -1,6 +1,7 @@
 package com.vaadin.componentfactory.explorer;
 
 import com.vaadin.componentfactory.explorer.bean.DummyFile;
+import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
@@ -29,7 +30,7 @@ public class LazyTreeComponentView extends Div {
             icon.setColor("var(--lumo-contrast-50pct)");
             return new Span(icon, VaadinIcon.CLIPBOARD.create(), new Span(value.getFilename()));
         }).setHeader("Department Name");
-
+        grid.setSelectionMode(Grid.SelectionMode.MULTI);
         return getDummyFileTreeGrid(grid);
     }
 }
