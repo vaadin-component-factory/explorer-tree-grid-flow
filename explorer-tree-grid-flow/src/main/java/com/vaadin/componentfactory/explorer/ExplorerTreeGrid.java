@@ -31,6 +31,7 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridSelectionModel;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.treegrid.TreeGrid;
+import com.vaadin.flow.data.provider.hierarchy.HierarchicalDataProvider;
 import com.vaadin.flow.data.provider.hierarchy.HierarchicalQuery;
 import com.vaadin.flow.data.renderer.TemplateRenderer;
 import com.vaadin.flow.data.selection.SelectionEvent;
@@ -57,6 +58,17 @@ import java.util.stream.Collectors;
 @CssImport("./src/explorer-tree-toggle.js")
 @JavaScript("./src/explorer-grid-connector.js")
 public class ExplorerTreeGrid<T> extends TreeGrid<T> {
+
+    public ExplorerTreeGrid() {
+    }
+
+    public ExplorerTreeGrid(Class<T> beanType) {
+        super(beanType);
+    }
+
+    public ExplorerTreeGrid(HierarchicalDataProvider<T, ?> dataProvider) {
+        super(dataProvider);
+    }
 
     protected void initConnector() {
         super.initConnector();

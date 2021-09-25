@@ -21,7 +21,7 @@ public class ExplorerView extends Div {
     }
 
     private TreeGrid<DummyFile> buildGrid() {
-        ExplorerTreeGrid<DummyFile> grid = new ExplorerTreeGrid<>();
+        ExplorerTreeGrid<DummyFile> grid = new ExplorerTreeGrid<>(DummyFile.class);
         grid.addHierarchyColumn(DummyFile::getFilename, DummyFile::getIcon).setHeader("File Name");
         grid.setSelectionMode(Grid.SelectionMode.MULTI);
         return getDummyFileTreeGrid(grid);
