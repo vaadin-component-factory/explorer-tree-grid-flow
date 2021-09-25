@@ -1,5 +1,5 @@
 
-import { LitElement, html } from 'lit-element';
+import { html } from 'lit-element';
 import { ThemableElement } from '@vaadin/themable-element';
 import '@polymer/polymer/lib/elements/custom-style.js';
 import { DirMixin } from '@vaadin/vaadin-element-mixin/vaadin-dir-mixin.js';

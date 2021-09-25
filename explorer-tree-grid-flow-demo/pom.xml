@@ -6,7 +6,7 @@
 
     <groupId>com.vaadin.componentfactory</groupId>
     <artifactId>explorer-tree-grid-flow-demo</artifactId>
-    <version>1.0.4</version>
+    <version>1.1.0</version>
 
     <name>Explorer Tree Grid Demo</name>
     <packaging>war</packaging>
@@ -18,7 +18,7 @@
     </organization>
 
     <properties>
-        <vaadin.version>14.3.2</vaadin.version>
+        <vaadin.version>14.6.0</vaadin.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -106,7 +106,7 @@
        <dependency>
            <groupId>com.vaadin.componentfactory</groupId>
            <artifactId>explorer-tree-grid-flow</artifactId>
-           <version>1.0.4</version>
+           <version>1.1.0</version>
        </dependency>
         <!-- https://mvnrepository.com/artifact/com.vaadin/flow-component-demo-helpers -->
         <dependency>
