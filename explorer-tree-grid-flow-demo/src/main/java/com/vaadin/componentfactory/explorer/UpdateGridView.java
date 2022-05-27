@@ -68,6 +68,7 @@ public class UpdateGridView extends VerticalLayout {
                         binder.setBean(selected)));
 
         configureActions(grid);
+        add(VaadinIcon.CLIPBOARD.create());
     }
 
     private void configureActions(TreeGrid<Department> grid) {

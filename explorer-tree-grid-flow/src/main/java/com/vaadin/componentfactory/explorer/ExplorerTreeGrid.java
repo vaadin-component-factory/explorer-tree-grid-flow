@@ -24,7 +24,6 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.JavaScript;
-import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.grid.AbstractGridMultiSelectionModel;
 import com.vaadin.flow.component.grid.Grid;
@@ -39,11 +38,7 @@ import com.vaadin.flow.function.SerializableComparator;
 import com.vaadin.flow.function.ValueProvider;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -54,7 +49,6 @@ import java.util.stream.Collectors;
  *            the grid bean type
  */
 @Uses(Icon.class)
-@NpmPackage(value="@vaadin/themable-element", version = "0.3.0")
 @CssImport("./src/explorer-tree-toggle.js")
 @JavaScript("./src/explorer-grid-connector.js")
 public class ExplorerTreeGrid<T> extends TreeGrid<T> {

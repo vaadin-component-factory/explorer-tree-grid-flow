@@ -1,8 +1,7 @@
-
-import { html } from 'lit-element';
-import { ThemableElement } from '@vaadin/themable-element';
+import { css, html, LitElement } from 'lit';
 import '@polymer/polymer/lib/elements/custom-style.js';
-import { DirMixin } from '@vaadin/vaadin-element-mixin/vaadin-dir-mixin.js';
+import { DirMixin } from '@vaadin/component-base/src/dir-mixin.js';
+import { ThemableMixin } from '@vaadin/vaadin-themable-mixin/vaadin-themable-mixin.js';
 /**
  *
  * This is a copy of the <code>vaadin-grid-tree-toggle</code> web component
@@ -11,7 +10,7 @@ import { DirMixin } from '@vaadin/vaadin-element-mixin/vaadin-dir-mixin.js';
  * The styles and inner HTML are different.
  * The logic is the same.
  */
-class ExplorerTreeToggleElement extends DirMixin(ThemableElement) {
+class ExplorerTreeToggleElement extends DirMixin(ThemableMixin(LitElement)) {
 
 
   static get properties() {
@@ -70,9 +69,9 @@ class ExplorerTreeToggleElement extends DirMixin(ThemableElement) {
     this.icon = "";
   }
 
-  render() {
-    return html`<style>
-    
+  static get styles() {
+    return css`
+        
     :host {
         --explorer-tree-grid-toggle-level-offset: 1.5rem;
         --explorer-tree-grid-icon-type-width: 1.1rem;
@@ -272,9 +271,14 @@ class ExplorerTreeToggleElement extends DirMixin(ThemableElement) {
         margin-right: var(--explorer-tree-grid-icon-type-margin);
        --iron-icon-height: calc( var(--explorer-tree-grid-icon-type-width) - var(--explorer-tree-grid-icon-type-margin) );
        --iron-icon-width: calc( var(--explorer-tree-grid-icon-type-width) - var(--explorer-tree-grid-icon-type-margin) );
+       --lumo-icon-size-m: var(--iron-icon-height);
+       --lumo-icon-size-m: var(--iron-icon-width);
       }
       
-    </style>
+	  `;
+  }
+  render() {
+    return html`
     ${this.parentlines.map(item =>
         item ? html`<span class="level-spacer"> </span>` : html`<span class="level-spacer level-spacer-hidden"> </span>`
     )}
@@ -285,7 +289,7 @@ class ExplorerTreeToggleElement extends DirMixin(ThemableElement) {
       <span part="toggle"></span>
     </span>
     ${(this.icon !== "")?
-        html`<iron-icon class="icon-type" icon='${this.icon}'></iron-icon>`:
+        html`<vaadin-icon class="icon-type" icon='${this.icon}'></vaadin-icon>`:
         ``}
     <slot></slot>`;
   }
