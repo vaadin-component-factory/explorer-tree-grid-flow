@@ -6,7 +6,7 @@ import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.RouterLink;
 
-@CssImport(value="./src/custom-explorer-tree-grid.css", themeFor = "explorer-tree-grid-toggle")
+@CssImport(value="./src/custom-explorer-tree-grid.css")
 public class MainLayout extends AppLayout {
 
     public MainLayout() {
