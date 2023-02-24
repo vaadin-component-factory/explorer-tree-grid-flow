@@ -21,18 +21,10 @@ package com.vaadin.componentfactory.explorer;
  */
 
 import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.UI;
-import com.vaadin.flow.data.provider.DataGenerator;
-import com.vaadin.flow.data.provider.DataKeyMapper;
-import com.vaadin.flow.data.renderer.ComponentDataGenerator;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
-import com.vaadin.flow.data.renderer.Rendering;
-import com.vaadin.flow.dom.Element;
 import com.vaadin.flow.function.ValueProvider;
-import com.vaadin.flow.internal.JsonSerializer;
-import elemental.json.JsonObject;
 
-import java.util.Optional;
+import java.util.List;
 
 /**
  * Renders components as hierarchy column for tree grid. Basically puts
@@ -49,101 +41,37 @@ import java.util.Optional;
  * @param <SOURCE>
  *            the type of the input model object
  */
-public class ExplorerTreeHierarchyColumnComponentRenderer<COMPONENT extends Component, SOURCE>
-        extends ComponentRenderer<COMPONENT, SOURCE> {
+public class ExplorerTreeHierarchyColumnComponentRenderer<COMPONENT extends Component, SOURCE> extends ComponentRenderer<COMPONENT, SOURCE> {
 
     public ExplorerTreeHierarchyColumnComponentRenderer(
-            ValueProvider<SOURCE, COMPONENT> componentProvider) {
+            ValueProvider<SOURCE, COMPONENT> componentProvider,
+            ExplorerTreeGrid<SOURCE> grid) {
         super(componentProvider);
-    }
 
-    public ExplorerTreeHierarchyColumnComponentRenderer<COMPONENT, SOURCE> withProperty(
-            String property, ValueProvider<SOURCE, ?> provider) {
-        setProperty(property, provider);
-        return this;
-    }
-
-    @Override
-    public Rendering<SOURCE> render(Element container,
-            DataKeyMapper<SOURCE> keyMapper, Element contentTemplate) {
-
-        ComponentRendering rendering = new ComponentRendering(
-                keyMapper == null ? null : keyMapper::key);
-        rendering.setTemplateElement(contentTemplate);
-
-        container.getNode().runWhenAttached(ui -> setupTemplateWhenAttached(ui,
-                container, rendering, keyMapper));
-        return rendering;
-    }
-
-    private void setupTemplateWhenAttached(UI ui, Element owner,
-            ComponentRendering rendering, DataKeyMapper<SOURCE> keyMapper) {
-        String appId = ui.getInternals().getAppId();
-        Element templateElement = rendering.getTemplateElement();
-        owner.appendChild(templateElement);
-
-        Element container = new Element("div");
-        owner.appendVirtualChild(container);
-        rendering.setContainer(container);
-        String templateInnerHtml;
-
-        if (keyMapper != null) {
-            String nodeIdPropertyName = "_renderer_"
-                    + templateElement.getNode().getId();
-
-            templateInnerHtml = String.format(
-                    "<flow-component-renderer appid=\"%s\" nodeid=\"[[item.%s]]\"></flow-component-renderer>",
-                    appId, nodeIdPropertyName);
-            rendering.setNodeIdPropertyName(nodeIdPropertyName);
-        } else {
-            COMPONENT component = createComponent(null);
-            if (component != null) {
-                container.appendChild(component.getElement());
-
-                templateInnerHtml = String.format(
-                        "<flow-component-renderer appid=\"%s\" nodeid=\"%s\"></flow-component-renderer>",
-                        appId, component.getElement().getNode().getId());
+        withFunction("onClick", item -> {
+            if (grid.isExpanded(item)) {
+                grid.collapse(List.of(item), true);
             } else {
-                templateInnerHtml = "";
+                grid.expand(List.of(item), true);
             }
-        }
-        /* The next line has been customized */
-        templateInnerHtml = "<explorer-tree-grid-toggle  class$='[[item.cssClassName]]' "
-                + "leaf='[[item.leaf]]' last='[[last]]' first='[[first]]' parentlines='{{parentlines}}' expanded='{{expanded}}' " +
-                ">" + templateInnerHtml + "</explorer-tree-grid-toggle>";
-        /* End of customization */
-        templateElement.setProperty("innerHTML", templateInnerHtml);
+        });
+
+        withProperty("children",
+                item -> grid.getDataCommunicator().hasChildren(item));
     }
+    @Override
+    protected String getTemplateExpression() {
+        // The click listener needs to check if the event gets canceled (by
+        // vaadin-grid-tree-toggle) and only invoke the callback if it does.
+        // vaadin-grid-tree-toggle will cancel the event if the user clicks on
+        // a non-focusable element inside the toggle.
+        var clickListener = "e => requestAnimationFrame(() => { e.defaultPrevented && onClick(e) })";
 
-    private class ComponentRendering extends ComponentDataGenerator<SOURCE>
-            implements Rendering<SOURCE> {
+        /* The next line has been customized */
+        return "<explorer-tree-grid-toggle @click=${" + clickListener
+                + "} class=${item.cssClassName} .leaf=${!item.children} .last=${model.last} .first=${model.first} .parentlines=${model.parentlines} .expanded=${model.expanded} .level=${model.level}>"
+                + super.getTemplateExpression() + "</explorer-tree-grid-toggle>";
 
-        private Element templateElement;
-
-        public ComponentRendering(ValueProvider<SOURCE, String> keyMapper) {
-            super(ExplorerTreeHierarchyColumnComponentRenderer.this, keyMapper);
-        }
-
-        public void setTemplateElement(Element templateElement) {
-            this.templateElement = templateElement;
-        }
-
-        @Override
-        public Element getTemplateElement() {
-            return templateElement;
-        }
-
-        @Override
-        public Optional<DataGenerator<SOURCE>> getDataGenerator() {
-            return Optional.of(this);
-        }
-
-        @Override
-        public void generateData(SOURCE item, JsonObject jsonObject) {
-            super.generateData(item, jsonObject);
-            // in order to add item.leaf property
-            getValueProviders().forEach((key, provider) -> jsonObject.put(key,
-                    JsonSerializer.toJson(provider.apply(item))));
-        }
+        /* End of customization */
     }
 }

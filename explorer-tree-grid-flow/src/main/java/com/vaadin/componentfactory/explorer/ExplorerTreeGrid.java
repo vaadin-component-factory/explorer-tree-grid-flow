@@ -32,7 +32,7 @@ import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.treegrid.TreeGrid;
 import com.vaadin.flow.data.provider.hierarchy.HierarchicalDataProvider;
 import com.vaadin.flow.data.provider.hierarchy.HierarchicalQuery;
-import com.vaadin.flow.data.renderer.TemplateRenderer;
+import com.vaadin.flow.data.renderer.LitRenderer;
 import com.vaadin.flow.data.selection.SelectionEvent;
 import com.vaadin.flow.function.SerializableComparator;
 import com.vaadin.flow.function.ValueProvider;
@@ -89,18 +89,26 @@ public class ExplorerTreeGrid<T> extends TreeGrid<T> {
      * @return
      */
     public Column<T> addHierarchyColumn(ValueProvider<T, ?> labelProvider, ValueProvider<T, ?> iconProvider) {
-        Column<T> column = addColumn(TemplateRenderer
-                .<T>of("<explorer-tree-grid-toggle "
-                        + "leaf='[[item.leaf]]' last='[[last]]' icon='[[item.icon]]' first='[[first]]' parentlines='{{parentlines}}' expanded='{{expanded}}' " +
-                        ">[[item.name]]  "
-                        + "</explorer-tree-grid-toggle>")
+        Column<T> column = addColumn(LitRenderer.<T>of("<explorer-tree-grid-toggle  @click=${onClick} "
+                + ".leaf=${item.leaf} .expanded=${model.expanded} .last=${model.last} .first=${model.first} .parentlines=${model.parentlines} .level=${model.level} icon=${item.icon}>"
+                + "${item.name}"
+                + "</explorer-tree-grid-toggle>")
                 .withProperty("leaf",
                         item -> {
                             return !getDataCommunicator().hasChildren(item);
                         })
                 .withProperty("icon", iconProvider)
-                .withProperty("name", labelProvider));
-
+                .withProperty("name", labelProvider)
+                .withFunction("onClick", item -> {
+                    if (getDataCommunicator().hasChildren(item)) {
+                        if (isExpanded(item)) {
+                            collapse(List.of(item), true);
+                        } else {
+                            expand(List.of(item), true);
+                        }
+                    }
+                })
+        );
         SerializableComparator<T> comparator = (a, b) -> {
             return compareMaybeComparables(labelProvider.apply(a), labelProvider.apply(b));
         };
@@ -109,10 +117,20 @@ public class ExplorerTreeGrid<T> extends TreeGrid<T> {
 
     }
 
+    @Override
+    protected void collapse(Collection<T> items, boolean userOriginated) {
+        super.collapse(items, userOriginated);
+    }
+
+    @Override
+    protected void expand(Collection<T> items, boolean userOriginated) {
+        super.expand(items, userOriginated);
+    }
+
     public <V extends Component> Column<T> addComponentHierarchyColumn(
             ValueProvider<T, V> componentProvider) {
         return addColumn(new ExplorerTreeHierarchyColumnComponentRenderer<V, T>(
-                componentProvider).withProperty("leaf",
+                componentProvider, this).withProperty("leaf",
                 item -> !getDataCommunicator().hasChildren(item)));
     }
 

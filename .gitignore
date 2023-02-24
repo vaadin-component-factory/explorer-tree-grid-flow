@@ -37,3 +37,4 @@ webpack.config.js
 webpack.generated.js
 
 explorer-tree-grid-flow/src/main/resources/rebel.xml
+/explorer-tree-grid-flow-demo/frontend/

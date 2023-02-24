@@ -10,7 +10,7 @@ import { ThemableMixin } from '@vaadin/vaadin-themable-mixin/vaadin-themable-mix
  * The styles and inner HTML are different.
  * The logic is the same.
  */
-class ExplorerTreeToggleElement extends DirMixin(ThemableMixin(LitElement)) {
+export default class ExplorerTreeToggleElement extends DirMixin(ThemableMixin(LitElement)) {
 
 
   static get properties() {
@@ -279,19 +279,19 @@ class ExplorerTreeToggleElement extends DirMixin(ThemableMixin(LitElement)) {
   }
   render() {
     return html`
-    ${this.parentlines.map(item =>
-        item ? html`<span class="level-spacer"> </span>` : html`<span class="level-spacer level-spacer-hidden"> </span>`
-    )}
-    <span class="toggle">
+      ${this.parentlines.map(item =>
+          item ? html`<span class="level-spacer"> </span>` : html`<span class="level-spacer level-spacer-hidden"> </span>`
+      )}
+      <span class="toggle">
       <span class="toggle-top-line"></span>
       <span class="toggle-bottom-line"></span>
       <span class="toggle-hori-line"></span>
       <span part="toggle"></span>
     </span>
-    ${(this.icon !== "")?
-        html`<vaadin-icon class="icon-type" icon='${this.icon}'></vaadin-icon>`:
-        ``}
-    <slot></slot>`;
+      ${(this.icon !== "")?
+          html`<vaadin-icon class="icon-type" icon='${this.icon}'></vaadin-icon>`:
+          ``}
+      <slot></slot>`;
   }
 
   static get is() {
