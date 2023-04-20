@@ -3,7 +3,7 @@
 
     <groupId>com.vaadin.componentfactory</groupId>
     <artifactId>explorer-tree-grid-flow-root</artifactId>
-    <version>23.0.0</version>
+    <version>23.0.1</version>
     <packaging>pom</packaging>
     <modules>
         <module>explorer-tree-grid-flow</module>
@@ -13,7 +13,7 @@
     <description>explorer-tree-grid-flow</description>
     
     <properties>
-        <vaadin.version>23.0.9</vaadin.version>
+        <vaadin.version>23.3.11</vaadin.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

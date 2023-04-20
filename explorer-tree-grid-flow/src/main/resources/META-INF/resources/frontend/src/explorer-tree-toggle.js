@@ -10,7 +10,7 @@ import { ThemableMixin } from '@vaadin/vaadin-themable-mixin/vaadin-themable-mix
  * The styles and inner HTML are different.
  * The logic is the same.
  */
-class ExplorerTreeToggleElement extends DirMixin(ThemableMixin(LitElement)) {
+export default class ExplorerTreeToggleElement extends DirMixin(ThemableMixin(LitElement)) {
 
 
   static get properties() {
