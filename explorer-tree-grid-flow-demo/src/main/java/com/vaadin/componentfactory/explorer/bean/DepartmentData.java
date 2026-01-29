@@ -43,6 +43,7 @@ public class DepartmentData {
                 new Department(41, "Sub-Office ", departmentList.get(9), "Anu1"));
         departmentList.add(
                 new Department(52, "Sub-Office 2", departmentList.get(15), "Anu2"));
+        departmentList.add(new Department(42, "Meta-Office", departmentList.get(9), "Anu0"));
         for (int i = 0; i < 60; i++) {
             departmentList
                     .add(new Department(200+i, "T "+i, null, "Test"));
@@ -62,13 +63,13 @@ public class DepartmentData {
     }
 
     public List<Department> getChildDepartments(Department parent) {
-        return getChildDepartments(parent, 0);
+        return getChildDepartments(parent, 0, Integer.MAX_VALUE);
     }
-    public List<Department> getChildDepartments(Department parent, int offset) {
+    public List<Department> getChildDepartments(Department parent, int offset, int limit) {
         List<Department> departmentList = DEPARTMENT_LIST.stream().filter(
                 department -> Objects.equals(department.getParent(), parent))
                 .collect(Collectors.toList());
-        return departmentList.subList(offset, departmentList.size());
+        return departmentList.subList(offset, Math.min(offset + limit, departmentList.size()));
     }
 
     public boolean hasChildren(Department parent) {

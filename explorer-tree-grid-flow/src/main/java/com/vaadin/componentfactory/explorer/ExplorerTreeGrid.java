@@ -1,5 +1,3 @@
-package com.vaadin.componentfactory.explorer;
-
 /*
  * #%L
  * explorer-tree-grid-flow
@@ -19,11 +17,11 @@ package com.vaadin.componentfactory.explorer;
  * limitations under the License.
  * #L%
  */
+package com.vaadin.componentfactory.explorer;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEvent;
-import com.vaadin.flow.component.dependency.CssImport;
-import com.vaadin.flow.component.dependency.JavaScript;
+import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.grid.AbstractGridMultiSelectionModel;
 import com.vaadin.flow.component.grid.Grid;
@@ -37,9 +35,7 @@ import com.vaadin.flow.data.selection.SelectionEvent;
 import com.vaadin.flow.function.SerializableComparator;
 import com.vaadin.flow.function.ValueProvider;
 
-import java.io.Serializable;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * A grid component for displaying hierarchical tabular data
@@ -49,8 +45,8 @@ import java.util.stream.Collectors;
  *            the grid bean type
  */
 @Uses(Icon.class)
-@CssImport("./src/explorer-tree-toggle.js")
-@JavaScript("./src/explorer-grid-connector.js")
+@JsModule("./src/explorer-tree-toggle.js")
+@JsModule("./src/explorer-grid-connector.js")
 public class ExplorerTreeGrid<T> extends TreeGrid<T> {
 
     public ExplorerTreeGrid() {
@@ -64,10 +60,11 @@ public class ExplorerTreeGrid<T> extends TreeGrid<T> {
         super(dataProvider);
     }
 
+    @Override
     protected void initConnector() {
         super.initConnector();
         (getUI().orElseThrow(() -> new IllegalStateException("Connector can only be initialized for an attached Grid")))
-                .getPage().executeJs("window.Vaadin.Flow.explorerGridConnector.initLazy($0)", new Serializable[]{this.getElement()});
+                .getPage().executeJs("window.Vaadin.Flow.explorerGridConnector.initLazy($0)", this.getElement());
     }
 
 
@@ -89,32 +86,35 @@ public class ExplorerTreeGrid<T> extends TreeGrid<T> {
      * @return
      */
     public Column<T> addHierarchyColumn(ValueProvider<T, ?> labelProvider, ValueProvider<T, ?> iconProvider) {
-        Column<T> column = addColumn(LitRenderer.<T>of("<explorer-tree-grid-toggle  @click=${onClick} "
+        Column<T> column = addColumn(LitRenderer.<T>of("<explorer-tree-grid-toggle @click=${onClick} "
                 + ".leaf=${item.leaf} .expanded=${model.expanded} .last=${model.last} .first=${model.first} .parentlines=${model.parentlines} .level=${model.level} icon=${item.icon}>"
                 + "${item.name}"
                 + "</explorer-tree-grid-toggle>")
                 .withProperty("leaf",
-                        item -> {
-                            return !getDataCommunicator().hasChildren(item);
-                        })
+                        item -> !getDataCommunicator().hasChildren(item))
                 .withProperty("icon", iconProvider)
                 .withProperty("name", labelProvider)
                 .withFunction("onClick", item -> {
                     if (getDataCommunicator().hasChildren(item)) {
                         if (isExpanded(item)) {
                             collapse(List.of(item), true);
+                            refreshGrid();
                         } else {
                             expand(List.of(item), true);
+                            refreshGrid();
                         }
                     }
                 })
         );
-        SerializableComparator<T> comparator = (a, b) -> {
-            return compareMaybeComparables(labelProvider.apply(a), labelProvider.apply(b));
-        };
+        SerializableComparator<T> comparator = (a, b) -> 
+            compareMaybeComparables(labelProvider.apply(a), labelProvider.apply(b));
         column.setComparator(comparator);
         return column;
 
+    }
+
+    private void refreshGrid() {
+        getElement().executeJs("setTimeout(() => $0.clearCache(), 100)", getElement());
     }
 
     @Override
@@ -127,6 +127,7 @@ public class ExplorerTreeGrid<T> extends TreeGrid<T> {
         super.expand(items, userOriginated);
     }
 
+    @Override
     public <V extends Component> Column<T> addComponentHierarchyColumn(
             ValueProvider<T, V> componentProvider) {
         return addColumn(new ExplorerTreeHierarchyColumnComponentRenderer<V, T>(
@@ -176,7 +177,7 @@ public class ExplorerTreeGrid<T> extends TreeGrid<T> {
                         getChildrenRecursively(getDataProvider()
                             .fetchChildren(
                                 new HierarchicalQuery<>(null, item))
-                            .collect(Collectors.toList()), depth - 1));
+                            .toList(), depth - 1));
                 }
             });
         return itemsWithChildren;

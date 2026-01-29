@@ -6,7 +6,7 @@
 
     <groupId>com.vaadin.componentfactory</groupId>
     <artifactId>explorer-tree-grid-flow-demo</artifactId>
-    <version>24.0.0</version>
+    <version>4.0.0</version>
 
     <name>Explorer Tree Grid Demo</name>
     <packaging>war</packaging>
@@ -18,9 +18,9 @@
     </organization>
 
     <properties>
-        <vaadin.version>24.0.0.beta4</vaadin.version>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <vaadin.version>25.0.0</vaadin.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <failOnMissingWebXml>false</failOnMissingWebXml>
@@ -48,11 +48,6 @@
             <id>Vaadin prereleases</id>
             <url>https://maven.vaadin.com/vaadin-prereleases</url>
         </repository>
-        <!-- Repository needed for the snapshot versions of Vaadin -->
-        <repository>
-            <id>vaadin-snapshots</id>
-            <url>https://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
-        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -61,11 +56,6 @@
             <id>Vaadin prereleases</id>
             <url>https://maven.vaadin.com/vaadin-prereleases</url>
         </pluginRepository>
-        <pluginRepository>
-            <id>vaadin-snapshots</id>
-            <url>https://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
-            <releases><enabled>false</enabled></releases>
-        </pluginRepository>
     </pluginRepositories>
     <dependencies>
         <dependency>
@@ -73,11 +63,16 @@
             <!-- Replace artifactId with vaadin-core to use only free components -->
             <artifactId>vaadin-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-dev</artifactId>
+            <optional>true</optional>
+        </dependency>
 
        <dependency>
            <groupId>com.vaadin.componentfactory</groupId>
            <artifactId>explorer-tree-grid-flow</artifactId>
-           <version>24.0.0</version>
+           <version>4.0.0</version>
        </dependency>
 
         <dependency>
@@ -101,11 +96,11 @@
         <plugins>
             <!-- Jetty plugin for easy testing without a server -->
             <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>11.0.13</version>
+                <groupId>org.eclipse.jetty.ee10</groupId>
+                <artifactId>jetty-ee10-maven-plugin</artifactId>
+                <version>12.0.15</version>
                 <configuration>
-                    <scanIntervalSeconds>-1</scanIntervalSeconds>
+                    <scan>-1</scan>
                     <stopKey>${project.artifactId}</stopKey>
                     <stopPort>8081</stopPort>
                     <systemProperties>

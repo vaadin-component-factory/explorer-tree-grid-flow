@@ -6,7 +6,7 @@
 
     <groupId>com.vaadin.componentfactory</groupId>
     <artifactId>explorer-tree-grid-flow</artifactId>
-    <version>24.0.0</version>
+    <version>4.0.0</version>
     <packaging>jar</packaging>
 
     <name>Explorer Tree Grid</name>
@@ -19,9 +19,9 @@
     </organization>
 
     <properties>
-        <vaadin.version>24.0.0.beta4</vaadin.version>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <vaadin.version>25.0.0</vaadin.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
@@ -47,11 +47,6 @@
             <id>Vaadin prereleases</id>
             <url>https://maven.vaadin.com/vaadin-prereleases</url>
         </repository>
-        <!-- Repository needed for the snapshot versions of Vaadin -->
-        <repository>
-            <id>vaadin-snapshots</id>
-            <url>https://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
-        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -60,46 +55,12 @@
             <id>Vaadin prereleases</id>
             <url>https://maven.vaadin.com/vaadin-prereleases</url>
         </pluginRepository>
-        <pluginRepository>
-            <id>vaadin-snapshots</id>
-            <url>https://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
-            <releases><enabled>false</enabled></releases>
-        </pluginRepository>
     </pluginRepositories>
     <dependencies>
         <dependency>
             <groupId>com.vaadin</groupId>
             <!-- Replace artifactId with vaadin-core to use only free components -->
             <artifactId>vaadin-core</artifactId>
-
-            <exclusions>
-                <!-- Webjars are only needed when running in Vaadin 13 compatibility mode -->
-                <!-- We have to exclude here as well, otherwise the commercial components which are Polymer 2/3 hybrids will bring in polymer 2 and webjars-->
-                <exclusion>
-                    <groupId>com.vaadin.webjar</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.webjars.bowergithub.insites</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.webjars.bowergithub.polymer</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.webjars.bowergithub.polymerelements</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.webjars.bowergithub.vaadin</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.webjars.bowergithub.webcomponents</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
     </dependencies>

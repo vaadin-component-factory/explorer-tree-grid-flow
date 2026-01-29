@@ -116,7 +116,7 @@ public class UpdateGridView extends VerticalLayout {
                 @Override
                 protected Stream<Department> fetchChildrenFromBackEnd(
                         HierarchicalQuery<Department, Void> query) {
-                    return departmentData.getChildDepartments(query.getParent(), query.getOffset()).stream();
+                    return departmentData.getChildDepartments(query.getParent(), query.getOffset(), query.getLimit()).stream();
                 }
             };
 

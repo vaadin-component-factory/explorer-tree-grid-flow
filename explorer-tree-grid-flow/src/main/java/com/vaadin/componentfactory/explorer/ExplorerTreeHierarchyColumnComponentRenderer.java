@@ -51,14 +51,21 @@ public class ExplorerTreeHierarchyColumnComponentRenderer<COMPONENT extends Comp
         withFunction("onClick", item -> {
             if (grid.isExpanded(item)) {
                 grid.collapse(List.of(item), true);
+                refreshGrid(grid);
             } else {
                 grid.expand(List.of(item), true);
+                refreshGrid(grid);
             }
         });
 
         withProperty("children",
                 item -> grid.getDataCommunicator().hasChildren(item));
     }
+
+    private void refreshGrid(ExplorerTreeGrid<SOURCE> grid) {
+        grid.getElement().executeJs("setTimeout(() => $0.clearCache(), 100)", grid.getElement());
+    }
+
     @Override
     protected String getTemplateExpression() {
         // The click listener needs to check if the event gets canceled (by

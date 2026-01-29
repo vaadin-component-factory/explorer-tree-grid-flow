@@ -22,9 +22,9 @@ public class DummyFileService {
         return (dummyFile.getLevel() < maximumLevel);
     }
 
-    public static List<DummyFile> fetchChildren(DummyFile parent, int offset) {
+    public static List<DummyFile> fetchChildren(DummyFile parent, int offset, int limit) {
         if ( hasChildren(parent)) {
-            return createDummyFileList(parent, offset);
+            return createDummyFileList(parent, offset).stream().limit(limit).toList();
         } else {
             return new ArrayList<>();
         }

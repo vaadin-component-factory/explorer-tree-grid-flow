@@ -1,7 +1,8 @@
 import { css, html, LitElement } from 'lit';
-import '@polymer/polymer/lib/elements/custom-style.js';
 import { DirMixin } from '@vaadin/component-base/src/dir-mixin.js';
 import { ThemableMixin } from '@vaadin/vaadin-themable-mixin/vaadin-themable-mixin.js';
+import { ThemeDetectionMixin } from "@vaadin/vaadin-themable-mixin/vaadin-theme-detection-mixin.js";
+
 /**
  *
  * This is a copy of the <code>vaadin-grid-tree-toggle</code> web component
@@ -10,8 +11,7 @@ import { ThemableMixin } from '@vaadin/vaadin-themable-mixin/vaadin-themable-mix
  * The styles and inner HTML are different.
  * The logic is the same.
  */
-export default class ExplorerTreeToggleElement extends DirMixin(ThemableMixin(LitElement)) {
-
+export default class ExplorerTreeToggleElement extends DirMixin(ThemeDetectionMixin(ThemableMixin(LitElement))) {
 
   static get properties() {
     return {

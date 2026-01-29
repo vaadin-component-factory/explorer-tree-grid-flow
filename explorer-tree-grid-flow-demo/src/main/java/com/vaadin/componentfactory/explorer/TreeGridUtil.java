@@ -28,7 +28,7 @@ public class TreeGridUtil {
                     @Override
                     protected Stream<DummyFile> fetchChildrenFromBackEnd(
                             HierarchicalQuery<DummyFile, Void> query) {
-                        return DummyFileService.fetchChildren(query.getParent(), query.getOffset()).stream();
+                        return DummyFileService.fetchChildren(query.getParent(), query.getOffset(), query.getLimit()).stream();
                     }
                 };
 
